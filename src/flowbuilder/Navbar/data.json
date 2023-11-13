@@ -1,0 +1,173 @@
+{
+    "nodes": [
+      {
+        "width": 360,
+        "height": 70,
+        "id": "start-node",
+        "type": "startNode",
+        "position": {
+          "x": 0.000792278430382344,
+          "y": 0
+        },
+        "data": {
+          "label": "Start the campaign",
+          "stepType": "start",
+          "subLabel": "",
+          "days": 1,
+          "actionTitle": "",
+          "condition": null,
+          "email_subject": "",
+          "branch": null,
+          "isAiMsg": true,
+          "editorData": "",
+          "email": ""
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom",
+        "positionAbsolute": {
+          "x": 0.000792278430382344,
+          "y": 0
+        }
+      },
+      {
+        "width": 360,
+        "height": 70,
+        "id": "b6093522-e674-4a26-b685-f46484daba98",
+        "type": "StepNode",
+        "position": {
+          "x": 0.0003754852641909048,
+          "y": 120
+        },
+        "data": {
+          "label": "Send linkedin voice note",
+          "subLabel": "",
+          "isAiMsg": true,
+          "stepType": "email",
+          "days": 1,
+          "actionTitle": "send_voice",
+          "condition": null,
+          "branch": null,
+          "email_subject": "",
+          "editorData": "",
+          "email": ""
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom",
+        "positionAbsolute": {
+          "x": 0.0003754852641909048,
+          "y": 120
+        }
+      },
+      {
+        "id": "dc15be38-d007-4c6b-a3ad-fb31af3a1559",
+        "type": "StepNode",
+        "position": {
+          "x": 100,
+          "y": 200
+        },
+        "data": {
+          "label": "Comment last user linkedin post",
+          "subLabel": "",
+          "isAiMsg": true,
+          "stepType": "linkedin",
+          "days": 1,
+          "actionTitle": "comment_last_post",
+          "condition": null,
+          "branch": null,
+          "email_subject": "",
+          "editorData": "",
+          "email": ""
+        },
+        "width": 360,
+        "height": 70
+      },
+      {
+        "id": "a7c58b13-6ce8-4afc-a76d-df9fb8fee71f",
+        "type": "TimerNode",
+        "position": {
+          "x": 100,
+          "y": 200
+        },
+        "data": {
+          "label": "",
+          "subLabel": "",
+          "stepType": "timer",
+          "days": 1,
+          "actionTitle": "",
+          "condition": null,
+          "branch": null,
+          "isAiMsg": true,
+          "email_subject": "",
+          "editorData": "",
+          "email": ""
+        },
+        "width": 360,
+        "height": 70
+      },
+      {
+        "id": "4269926a-1036-49a8-ba7c-4a538d234967",
+        "type": "FloatNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "",
+          "subLabel": "",
+          "stepType": "",
+          "days": 1,
+          "actionTitle": "",
+          "isAiMsg": true,
+          "condition": null,
+          "branch": null,
+          "email_subject": "",
+          "editorData": "",
+          "email": ""
+        },
+        "width": 360,
+        "height": 70
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge-button2",
+        "source": "start-node",
+        "target": "b6093522-e674-4a26-b685-f46484daba98",
+        "type": "bridge",
+        "data": {
+          "condition": "",
+          "icon": false
+        }
+      },
+      {
+        "id": "e182fac6-23d4-4e48-80bb-1421c4af892b",
+        "source": "dc15be38-d007-4c6b-a3ad-fb31af3a1559",
+        "target": "4269926a-1036-49a8-ba7c-4a538d234967",
+        "type": "default",
+        "data": {
+          "icon": false,
+          "condition": ""
+        }
+      },
+      {
+        "id": "3ee541e8-f56e-492a-9ffb-960d76e1d5e4",
+        "source": "b6093522-e674-4a26-b685-f46484daba98",
+        "target": "a7c58b13-6ce8-4afc-a76d-df9fb8fee71f",
+        "type": "bridge",
+        "data": {
+          "icon": false,
+          "condition": ""
+        }
+      },
+      {
+        "id": "0bdf5bfa-d103-4fa9-95de-ddb61a05af0c",
+        "source": "a7c58b13-6ce8-4afc-a76d-df9fb8fee71f",
+        "target": "dc15be38-d007-4c6b-a3ad-fb31af3a1559",
+        "type": "default",
+        "data": {
+          "icon": false,
+          "condition": ""
+        }
+      }
+    ]
+  }
