@@ -44,6 +44,7 @@ function useFlowBuilder() {
     }),
     []
   );
+
   const stepActionHandle = (item) => {
     // Nodes actions or update
     const getNewNode = addNewNode(item);

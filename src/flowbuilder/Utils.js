@@ -63,6 +63,7 @@ const initialNodes = [
     data: {
       description: "Begin the process",
       stepType: "start",
+      conditions: [],
     },
   },
   {
@@ -72,6 +73,7 @@ const initialNodes = [
     data: {
       description: "",
       stepType: "email",
+      conditions: [],
     },
   },
 ];
@@ -95,10 +97,9 @@ const addNewNode = (data) => {
     position: { x: 100, y: 200 },
     data: {
       description: data.label,
-
       stepType: data.stepType,
-
       actionTitle: data.actionTitle,
+      conditions: [],
     },
   };
   return newNode;
@@ -112,6 +113,7 @@ const addNewFloatNode = () => {
     data: {
       description: "",
       stepType: "",
+      conditions: [],
     },
   };
   return newNode;

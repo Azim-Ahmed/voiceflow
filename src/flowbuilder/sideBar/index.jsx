@@ -11,13 +11,21 @@ import { Transition } from "@headlessui/react";
 import useUpdateNode from "@/hooks/useUpdateNode";
 import { Button } from "@/components/button";
 import { nanoid } from "nanoid";
-const SideBar = ({
-  sideBarOpen,
-  currentSideData,
-  openSidebar,
-  setOpenSidebar,
-}) => {
+import AutoComplete from "./AutoComplete";
+import { NodeTypes } from "../Utils";
+import { useReactFlow } from "reactflow";
+const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
+  const { setNodes, setEdges, getNodes, getNode, getEdges, fitView } =
+    useReactFlow();
   console.log({ currentSideData });
+  const allNodes = getNodes();
+  const except = allNodes.filter((item) => item.type !== NodeTypes.startNode);
+  const FinalNode = except.filter((item) => item.type !== NodeTypes.FloatNode);
+  const renderNodes = FinalNode.map((item) => ({
+    email: item.data.description,
+    id: item.id,
+  }));
+  console.log({ renderNodes });
   const addInput = () => {
     append({ id: nanoid(4), value: "", step: "" });
   };
@@ -31,7 +39,6 @@ const SideBar = ({
     control,
     formState: { errors, isDirty, isValid },
     register,
-    // watch,
     reset,
     // setValue,
     // setError,
@@ -209,7 +216,29 @@ const SideBar = ({
                           >
                             Go to step:
                           </label>
-                          <input
+                          <Controller
+                            name={`conditions.${index}.step`}
+                            control={control}
+                            rules={{
+                              required: "Please select a sender",
+                            }}
+                            render={({
+                              field: { onChange, value, onBlur },
+                            }) => (
+                              <AutoComplete
+                                value={value}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                emails={renderNodes}
+                                currentSideData={currentSideData}
+                              />
+                            )}
+                          />
+                          <ErrorMessage
+                            errors={errors}
+                            name={`conditions.${index}.step`}
+                          />
+                          {/* <input
                             id={`conditions.${index}.step`}
                             type="number"
                             min={1}
@@ -221,7 +250,7 @@ const SideBar = ({
                             })}
                             className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
                             placeholder="Enter step number"
-                          />
+                          /> */}
                           <span
                             onClick={() => remove(index)}
                             className="text-red-700 py-1 cursor-pointer"
