@@ -7,9 +7,8 @@ function useUpdateNode() {
       const clonedNodes = [...nodes];
       const maped = clonedNodes.map((item) => {
         if (currentNode.id === item.id) {
-          item.data.email = data?.email?.email ?? "";
-          item.data.isAiMsg = data?.isAiMsg;
-          item.data.email_subject = data?.email_subject ?? "";
+          item.data.description = data?.description ?? "";
+          item.data.gotoStep = data?.gotoStep ?? "";
           return item;
         }
         return item;

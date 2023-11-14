@@ -8,65 +8,53 @@ import {
 } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
 import { Transition } from "@headlessui/react";
-// import { GlobalContext } from "@/app/context/context";
 import useUpdateNode from "@/hooks/useUpdateNode";
 import { Button } from "@/components/button";
 import { nanoid } from "nanoid";
-const SideBar = ({ sideBarOpen, currentSideData, emails }) => {
-  // const { state, dispatch } = useContext(GlobalContext);
-  console.log(currentSideData);
-
-  // code for add condition but not working
-  const inputArr = [
-    {
-      type: "text",
-      id: 1,
-      value: "",
-    },
-  ];
-  const [arr, setArr] = useState(inputArr);
+const SideBar = ({
+  sideBarOpen,
+  currentSideData,
+  openSidebar,
+  setOpenSidebar,
+}) => {
+  console.log({ currentSideData });
   const addInput = () => {
     append({ id: nanoid(4), value: "", step: "" });
-    setArr((prev) => [
-      ...prev,
-      {
-        type: "text",
-        value: "",
-      },
-    ]);
   };
-
-  const [senderProfile, setsenderProfile] = useState({
-    name: "",
-    email: null,
-    linkedinUrl: "",
-    avatar: "/no-profile-picture.svg",
-    headline: "",
-  });
-
-  ////////////////////////////////////
   const initialDefault = {
-    email: {},
-    email_subject: "",
-    isAiMsg: true,
+    description: "",
+    gotoStep: "",
   };
   const [defaultValues, setdefaultValues] = useState(initialDefault);
-  const { handleSubmitNode } = useUpdateNode();
-
   const {
     handleSubmit,
     control,
     formState: { errors, isDirty, isValid },
     register,
-    watch,
+    // watch,
     reset,
-    setValue,
-    setError,
-    clearErrors,
+    // setValue,
+    // setError,
+    // clearErrors,
   } = useForm({
     defaultValues,
     mode: "onChange",
   });
+  const { handleSubmitNode } = useUpdateNode();
+
+  useEffect(() => {
+    if (currentSideData) {
+      setdefaultValues((prev) => ({
+        ...prev,
+        description: currentSideData?.data?.description,
+        gotoStep: currentSideData?.data?.gotoStep,
+      }));
+    }
+  }, [currentSideData]);
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [reset, defaultValues]);
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -77,9 +65,10 @@ const SideBar = ({ sideBarOpen, currentSideData, emails }) => {
 
   const onSubmit = async (data) => {
     const itemData = { ...data };
-    console.log(data);
-    handleSubmitNode(itemData, currentSideData);
+    console.log({ data });
+    handleSubmitNode(data, currentSideData);
     reset();
+    setOpenSidebar(false);
   };
   return (
     <Transition appear show={sideBarOpen} as={Fragment}>
@@ -104,24 +93,13 @@ const SideBar = ({ sideBarOpen, currentSideData, emails }) => {
               <SideBarTopPortion item={currentSideData} />
               <div className="space-y-5">
                 <div className="space-y-2">
-                  <label htmlFor="" className="text-gray-900">
-                    Type :
+                  <label
+                    htmlFor=""
+                    className="w-full px-6 py-4 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black select-none"
+                  >
+                    {`Type : ${currentSideData.type}`}
                   </label>
-                  <input
-                    defaultValue="start"
-                    type="text"
-                    {...register("type", {
-                      required: {
-                        value: true,
-                        message: "Please fill the title of message",
-                      },
-                    })}
-                    className={`w-full px-6 py-4 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
-                    placeholder="Title of the message"
-                  />
-                  <ErrorMessage errors={errors} name="type" />
                 </div>
-                {/* here i check the currentSideData type and show the input form for each condition */}
                 {currentSideData.type === "startNode" ? (
                   <div className="space-y-2">
                     <label htmlFor="" className="text-gray-900">
@@ -152,7 +130,7 @@ const SideBar = ({ sideBarOpen, currentSideData, emails }) => {
                         {...register("description", {
                           required: {
                             value: true,
-                            message: "Please fill the title of message",
+                            message: "Description field is required",
                           },
                         })}
                         className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
@@ -166,16 +144,16 @@ const SideBar = ({ sideBarOpen, currentSideData, emails }) => {
                       </label>
                       <input
                         type="text"
-                        {...register("step", {
+                        {...register("gotoStep", {
                           required: {
                             value: true,
-                            message: "Please fill the title of message",
+                            message: "Step field is required",
                           },
                         })}
                         className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
                         placeholder="Title of the message"
                       />
-                      <ErrorMessage errors={errors} name="description" />
+                      <ErrorMessage errors={errors} name="gotoStep" />
                     </div>
                     <Button type="submit">Save</Button>
                   </>

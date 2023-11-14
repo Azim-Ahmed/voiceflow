@@ -200,7 +200,7 @@ function useFlowBuilder() {
       ];
       return newNodes;
     });
-
+    fitView({ maxZoom: 1, duration: 300 });
     if (prevNode.type === NodeTypes.Condition) {
       const standAloneEdge = _.cloneDeep(connectedEdge[0]);
       standAloneEdge.target = getNewNode.id;
@@ -258,7 +258,7 @@ function useFlowBuilder() {
       fitView({ maxZoom: 1, duration: 300 });
     }
     // // Edges actions or update
-
+    fitView({ maxZoom: 1, duration: 300 });
     setCurrentEdge({});
     setCurrentNode({});
     setIsModalOpen(false);

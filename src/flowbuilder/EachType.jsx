@@ -3,7 +3,7 @@ const EachType = (props) => {
   const { label, Icon, subLabel } = item;
   return (
     <div
-      className="w-[305px] h-[80] p-[16px] bg-white rounded-lg border border-gray-300 flex items-center gap-4 cursor-pointer"
+      className="w-[350px] h-[80] p-[16px] bg-white rounded-lg border border-gray-300 flex items-center gap-4 cursor-pointer"
       onClick={() => actionHandle(item)}
     >
       <div className="w-[58px] h-[48px] relative">

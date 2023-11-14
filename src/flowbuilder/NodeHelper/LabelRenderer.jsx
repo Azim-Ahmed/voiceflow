@@ -30,7 +30,7 @@ const LabelRenderer = ({ props, data }) => {
           : "flex"
       }
     >
-      <p className="font-semibold text-gray-900 text-sm">{data?.label}</p>
+      <p className="font-semibold text-gray-900 text-sm">{data?.description}</p>
 
       {nodeErrorCheck ? (
         <>

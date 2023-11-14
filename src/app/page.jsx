@@ -41,7 +41,7 @@ const Flowbuilder = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [size, ref] = useElementSize();
 
-  const { fitView, getViewport } = useReactFlow();
+  const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [layoutElements, setLayoutElements] = React.useState([]);
@@ -64,8 +64,8 @@ const Flowbuilder = () => {
       } else if (node.type === NodeTypes.FloatNode) {
         return;
       } else {
-        setCurrentSideData(node);
         fitView({ maxZoom: 1, duration: 300 });
+        setCurrentSideData(node);
         setOpenSidebar(true);
       }
     },
@@ -148,7 +148,8 @@ const Flowbuilder = () => {
           <SideBar
             sideBarOpen={openSidebar}
             currentSideData={currentSideData}
-            emails={[]}
+            openSidebar={openSidebar}
+            setOpenSidebar={setOpenSidebar}
           />
         )}
         <SelectNodeModal
