@@ -47,11 +47,8 @@ const SideBar = ({ sideBarOpen, currentSideData, emails }) => {
   ////////////////////////////////////
   const initialDefault = {
     email: {},
-    editorData: "",
     email_subject: "",
     isAiMsg: true,
-    humanText: "",
-    always_send_msg: false,
   };
   const [defaultValues, setdefaultValues] = useState(initialDefault);
   const { handleSubmitNode } = useUpdateNode();

@@ -13,7 +13,7 @@ const Navbar = ({ jsonElements }) => {
           {" "}
           <ArrowLeftIcon className="h-5 w-5  text-black" aria-hidden="true" />
         </div>
-        <p className="text-black text-base font-semibold">Campaign Name</p>
+        <p className="text-black text-base font-semibold">Voice Builder</p>
         {/* <SwitchGear
           isOn={checked}
           handleToggle={() => setChecked(!checked)}
@@ -24,7 +24,7 @@ const Navbar = ({ jsonElements }) => {
       <div className="flex">
         <button
           className={
-            " rounded-lg py-2.5 px-10  text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-purple-600 shadow text-white"
+            " rounded-lg py-2.5 px-10  text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-blue-800 shadow text-white"
           }
           onClick={() => toJSON(jsonElements)}
         >
@@ -34,10 +34,10 @@ const Navbar = ({ jsonElements }) => {
       <div className="flex">
         <button
           className={
-            " rounded-lg py-2.5 px-10  text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-purple-600 shadow text-white"
+            " rounded-lg py-2.5 px-10  text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-blue-800 shadow text-white"
           }
         >
-          Launch Campaign
+          Execute
         </button>
       </div>
     </div>

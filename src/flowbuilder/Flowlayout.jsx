@@ -12,7 +12,7 @@ const Flowlayout = (props) => {
     return (
       <>
         <>
-          del
+          <span style={{ visibility: "hidden" }}>del</span>
           {/* <h1>Azim</h1> */}
           {/* <TailPopover
               handleDelete={handleDelete}

@@ -16,10 +16,10 @@ const LabelRenderer = ({ props, data }) => {
   const senderRequired = checkedWithoutEditor
     ? data.email === ""
     : checkedWithEmailSubject
-    ? data.email === "" || data.editorData === "" || data.email_subject === ""
+    ? data.email === "" || data.email_subject === ""
     : noErrorCheck
     ? false
-    : data.email === "" || data.editorData === "";
+    : data.email === "";
   return (
     <div
       className={

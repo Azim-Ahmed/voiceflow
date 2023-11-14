@@ -15,7 +15,7 @@ const NodeSelectTab = ({
 }) => {
   const documentsTakingTabs = [
     {
-      label: "Add an action",
+      label: "Add an input",
       id: 1,
     },
     {
@@ -38,7 +38,7 @@ const NodeSelectTab = ({
                   "w-full rounded-lg py-2.5 text-sm font-medium rounded-l-lg  leading-5 text-gray-600",
                   "ring-white ring-opacity-60 ring-offset-2 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-purple-600 shadow text-white mx-1"
+                    ? "bg-blue-800 shadow text-white mx-1"
                     : "text-black bg-white hover:bg-white/[0.12] hover:text-black"
                 )
               }
@@ -47,7 +47,7 @@ const NodeSelectTab = ({
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-2 w-[955px]">
+        <Tab.Panels className="mt-2 w-[400px]">
           {renderedTab.map(({ id }, idx) => (
             <Tab.Panel
               key={id}

@@ -12,14 +12,7 @@ import ReactFlow, {
 import _ from "lodash";
 import "./styles.css";
 import "reactflow/dist/style.css";
-// import StepNode from "@/app/flowbuilder/StepNode";
-// import ConditionNode from "@/app/flowbuilder/ConditionNode";
-// import StartNode from "@/app/flowbuilder/StartNode";
-// import FloatNode from "@/app/flowbuilder/FloatNode";
-// import BridgeEdge from "@/app/flowbuilder/BridgeEdge";
-// import CustomEdge from "@/app/flowbuilder/CustomEdge";
 import SelectNodeModal from "../flowbuilder/SelectNodeModal";
-// import { getLayoutedElements } from "../components/flowbuilder/WorkflowLayoutUtils";
 import {
   NodeTypes,
   initialEdges,
@@ -32,7 +25,6 @@ import Navbar from "../flowbuilder/Navbar";
 import SideBar from "../flowbuilder/sideBar";
 import useElementSize from "@/hooks/useElementSize";
 import { getLayoutedElements } from "@/flowbuilder/WorkflowLayoutUtils";
-// import useElementSize from "../hooks/useElementSize";
 
 const Flowbuilder = () => {
   const {
@@ -88,10 +80,10 @@ const Flowbuilder = () => {
     [currentSideData.id]
   );
 
-  // const extractedJsonStructure = {
-  //   nodes,
-  //   edges,
-  // };
+  const extractedJsonStructure = {
+    nodes,
+    edges,
+  };
 
   useEffect(() => {
     fitView({ minZoom: 1, duration: 300 });
@@ -105,7 +97,6 @@ const Flowbuilder = () => {
   };
   return (
     <>
-      {/* <Navbar jsonElements={extractedJsonStructure} /> */}
       <div className="flex justify-center gap-y2 bg-white h-screen w-screen">
         <div
           className="bg-white"
@@ -114,6 +105,7 @@ const Flowbuilder = () => {
               openSidebar && currentSideData.id ? "calc(100%-40%)" : "100%",
           }}
         >
+          <Navbar jsonElements={extractedJsonStructure} />
           <ReactFlow
             ref={ref}
             nodes={layoutNodes}
