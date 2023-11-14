@@ -13,12 +13,7 @@ import _ from "lodash";
 import "./styles.css";
 import "reactflow/dist/style.css";
 import SelectNodeModal from "../flowbuilder/SelectNodeModal";
-import {
-  NodeTypes,
-  initialEdges,
-  initialNodes,
-  isSideBarOpen,
-} from "../flowbuilder/Utils";
+import { NodeTypes, initialEdges, initialNodes } from "../flowbuilder/Utils";
 import NodeSelectTab from "../flowbuilder/NodeSelectTab";
 import useFlowBuilder from "../hooks/useFlowBuilder";
 import Navbar from "../flowbuilder/Navbar";
@@ -61,9 +56,6 @@ const Flowbuilder = () => {
 
   const handleNodeClick = useCallback(
     (event, node) => {
-      const checkedSidebar = isSideBarOpen.every(
-        (item) => item !== node.data.actionTitle
-      );
       const tagName = event.target?.tagName;
       if (tagName !== "DIV" && node.type === NodeTypes.FloatNode) {
         setCurrentNode(node);
@@ -73,7 +65,7 @@ const Flowbuilder = () => {
         return;
       } else {
         setCurrentSideData(node);
-        fitView({ minZoom: 1, duration: 300 });
+        fitView({ maxZoom: 1, duration: 300 });
         setOpenSidebar(true);
       }
     },
@@ -86,9 +78,8 @@ const Flowbuilder = () => {
   };
 
   useEffect(() => {
-    fitView({ minZoom: 1, duration: 300 });
+    fitView({ maxZoom: 1, duration: 300 });
   }, [size.width]);
-  const viewport = getViewport();
 
   const defaultViewport = {
     x: size.width / 2 || 750,
@@ -120,19 +111,11 @@ const Flowbuilder = () => {
             elementsSelectable={true}
             zoomOnDoubleClick={false}
             deleteKeyCode={null}
-            // translateExtent={translateExtent}
             defaultViewport={defaultViewport}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onPaneClick={() => {
               setOpenSidebar(false);
-              // dispatch({
-              //   type: "NODE_SIDE_BAR",
-              //   payload: {
-              //     open: false,
-              //     activeId: "",
-              //   },
-              // });
             }}
             panOnScroll
             maxZoom={1}

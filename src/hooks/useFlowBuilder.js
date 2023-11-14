@@ -96,7 +96,7 @@ function useFlowBuilder() {
           // edgesCopy.push(newlyBindedTimerEdge);
           return edgesCopy;
         });
-        fitView({ duration: 300 });
+        fitView({ maxZoom: 1, duration: 300 });
       } else {
         const getNewFloatNode = addNewFloatNode();
         setNodes((nodes) => {
@@ -174,7 +174,7 @@ function useFlowBuilder() {
         return edgesCopy;
       });
     }
-    fitView({ duration: 300 });
+    fitView({ maxZoom: 1, duration: 300 });
     setIsModalOpen(false);
     setCurrentEdge({});
     setCurrentNode({});
@@ -255,7 +255,7 @@ function useFlowBuilder() {
         edgesCopy.push(newlyBindedNoFloatEdge);
         return edgesCopy;
       });
-      fitView({ duration: 300 });
+      fitView({ maxZoom: 1, duration: 300 });
     }
     // // Edges actions or update
 
