@@ -175,7 +175,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                         {...register("description", {
                           required: {
                             value: true,
-                            message: "Please fill the title of message",
+                            message: "Description is required",
                           },
                         })}
                         className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}

@@ -3,7 +3,6 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { toJSON } from "../Utils";
 
 const Navbar = ({ jsonElements }) => {
-  const [checked, setChecked] = React.useState(true);
   return (
     <div className="w-full h-[75px] px-6 flex justify-between items-center bg-white border border-zinc-900 border-opacity-20">
       <div className=" h-6 justify-start items-center gap-[17px] inline-flex">

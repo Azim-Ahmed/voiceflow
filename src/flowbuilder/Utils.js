@@ -34,7 +34,6 @@ export const ActionTitles = {
 
 export const isSideBarOpen = Object.values(ActionTitles).slice(2, 8);
 export const isSideBarWithoutEditor = Object.values(ActionTitles).slice(2, 10);
-export const noErrorToNode = Object.values(ActionTitles).slice(0, 2);
 export const nodeTypeStage = [
   {
     id: 1,

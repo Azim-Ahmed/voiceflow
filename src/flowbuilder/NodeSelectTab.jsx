@@ -47,7 +47,7 @@ const NodeSelectTab = ({
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-2 w-[400px]">
+        <Tab.Panels className="mt-2 w-[450px]">
           {renderedTab.map(({ id }, idx) => (
             <Tab.Panel
               key={id}
@@ -57,7 +57,7 @@ const NodeSelectTab = ({
               )}
             >
               {idx === 0 && (
-                <div className="flex flex-wrap flex-row gap-2">
+                <div className="flex flex-wrap justify-center flex-row gap-2">
                   {nodeTypeStage.map((item, i) => (
                     <EachType
                       key={i}
@@ -68,7 +68,7 @@ const NodeSelectTab = ({
                 </div>
               )}
               {idx === 1 && (
-                <div className="flex flex-wrap flex-row gap-2">
+                <div className="flex flex-wrap justify-center flex-row gap-2">
                   {nodeTypeCondtion.map((item, i) => (
                     <EachType
                       key={i}
