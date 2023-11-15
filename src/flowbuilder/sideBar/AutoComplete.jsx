@@ -3,15 +3,14 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
-const AutoComplete = ({ value, onChange, onBlur, currentSideData, emails }) => {
+const AutoComplete = ({ value, onChange, onBlur, renderNodes }) => {
   const [query, setQuery] = useState("");
   const comboBtn = useRef(null);
-
   const filteredPeople =
     query === ""
-      ? emails
-      : emails.filter((person) => {
-          return person.email
+      ? renderNodes
+      : renderNodes.filter((person) => {
+          return person.node
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""));
@@ -35,7 +34,7 @@ const AutoComplete = ({ value, onChange, onBlur, currentSideData, emails }) => {
             </Combobox.Button>
             <Combobox.Input
               className="w-full h-12  py-1 pl-2 border-none pr-10 text-sm leading-5 text-gray-900 bg-white focus:outline-none  focus:none"
-              displayValue={(person) => person.email}
+              displayValue={(person) => person.node}
               onClick={handleInputFocus}
               placeholder="Select a Sender"
               onBlur={onBlur}
@@ -55,7 +54,7 @@ const AutoComplete = ({ value, onChange, onBlur, currentSideData, emails }) => {
                   Nothing found.
                 </div>
               ) : (
-                filteredPeople?.map((email, index) => (
+                filteredPeople?.map((node, index) => (
                   <Combobox.Option
                     key={index}
                     className={({ active }) =>
@@ -63,7 +62,7 @@ const AutoComplete = ({ value, onChange, onBlur, currentSideData, emails }) => {
                         active ? "bg-purple-600 text-white" : "text-gray-900"
                       }`
                     }
-                    value={email}
+                    value={node}
                   >
                     {({ selected, active }) => (
                       <>
@@ -72,7 +71,7 @@ const AutoComplete = ({ value, onChange, onBlur, currentSideData, emails }) => {
                             selected ? "font-medium" : "font-normal"
                           }`}
                         >
-                          {email.email}
+                          {node.node}
                         </span>
                         {selected ? (
                           <span

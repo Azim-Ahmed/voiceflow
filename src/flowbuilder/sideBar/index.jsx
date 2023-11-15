@@ -16,17 +16,22 @@ import { NodeTypes } from "../Utils";
 import { useReactFlow } from "reactflow";
 const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const { getNodes } = useReactFlow();
-  console.log({ currentSideData });
+  // console.log({ currentSideData });
   const allNodes = getNodes();
   const except = allNodes.filter((item) => item.type !== NodeTypes.startNode);
-  const FinalNode = except.filter((item) => item.type !== NodeTypes.FloatNode);
+  const exceptFloat = except.filter(
+    (item) => item.type !== NodeTypes.FloatNode
+  );
+  const FinalNode = exceptFloat.filter(
+    (item) => item.id !== currentSideData.id
+  );
   const renderNodes = FinalNode.map((item) => ({
-    email: item.data.description,
+    node: item.data.description,
     id: item.id,
   }));
   // console.log({ renderNodes });
   const addInput = () => {
-    append({ id: nanoid(4), value: "", step: "" });
+    append({ id: nanoid(8), value: "", step: "" });
   };
   const initialDefault = {
     description: "",
@@ -71,7 +76,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   );
 
   const onSubmit = async (data) => {
-    console.log({ data });
+    // console.log({ data });
     handleSubmitNode(data, currentSideData);
     reset();
     setOpenSidebar(false);
@@ -225,7 +230,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                                 value={value}
                                 onChange={onChange}
                                 onBlur={onBlur}
-                                emails={renderNodes}
+                                renderNodes={renderNodes}
                                 currentSideData={currentSideData}
                               />
                             )}

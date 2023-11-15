@@ -60,9 +60,6 @@ function useFlowBuilder() {
         getIcomingNodes[0].type === NodeTypes.startNode ||
         getIcomingNodes[0].type === NodeTypes.StepNode
       ) {
-        // if (getIcomingNodes[0].type === NodeTypes.Condition) {
-        //   getNewNode.data.condition = getIcomingNodes[0]?.data?.actionTitle;
-        // }
         const getNewFloatNode = addNewFloatNode();
         setNodes((nodes) => {
           const newCopy = [...nodes];
@@ -185,90 +182,90 @@ function useFlowBuilder() {
     setCurrentNode({});
   };
 
-  // const conditionActionHandle = (item) => {
-  //   // Nodes actions or update
-  //   const getNewNode = addNewNode(item);
-  //   const getNewFloatNode1 = addNewFloatNode();
-  //   const getNewFloatNode2 = addNewFloatNode();
-  //   const currentClickedNode = new Array(currentNode);
-  //   const connectedEdge = getConnectedEdges(currentClickedNode, edges);
-  //   const prevNode = getNode(connectedEdge[0]?.source);
-  //   const nextNode = getNode(connectedEdge[0]?.target);
+  const conditionActionHandle = (item) => {
+    // Nodes actions or update
+    const getNewNode = addNewNode(item);
+    const getNewFloatNode1 = addNewFloatNode();
+    const getNewFloatNode2 = addNewFloatNode();
+    const currentClickedNode = new Array(currentNode);
+    const connectedEdge = getConnectedEdges(currentClickedNode, edges);
+    const prevNode = getNode(connectedEdge[0]?.source);
+    const nextNode = getNode(connectedEdge[0]?.target);
 
-  //   setNodes((nodes) => {
-  //     const nodesCopy = nodes.filter((item) => item.id !== currentNode.id);
-  //     const newNodes = [
-  //       ...nodesCopy,
-  //       getNewNode,
-  //       getNewFloatNode1,
-  //       getNewFloatNode2,
-  //     ];
-  //     return newNodes;
-  //   });
-  //   fitView({ maxZoom: 1, duration: 300 });
-  //   if (prevNode.type === NodeTypes.Condition) {
-  //     const standAloneEdge = _.cloneDeep(connectedEdge[0]);
-  //     standAloneEdge.target = getNewNode.id;
-  //     standAloneEdge.source = prevNode.id;
-  //     standAloneEdge.type = EdgeTypes.custom;
-  //     standAloneEdge.data.condition = connectedEdge[0]?.data.condition;
-  //     standAloneEdge.data.icon = true;
-  //     setEdges((edges) => {
-  //       const edgesCopy = edges.filter(
-  //         (item) => item.id !== connectedEdge[0].id
-  //       );
-  //       const newlyBindedNoFloatEdge = addNewConditionEdge(
-  //         getNewNode.id,
-  //         getNewFloatNode2.id,
-  //         "No",
-  //         false
-  //       );
-  //       const newlyBindedYesFloatEdge = addNewConditionEdge(
-  //         getNewNode.id,
-  //         getNewFloatNode1.id,
-  //         "Yes",
-  //         false
-  //       );
-  //       edgesCopy.push(standAloneEdge);
-  //       edgesCopy.push(newlyBindedYesFloatEdge);
-  //       edgesCopy.push(newlyBindedNoFloatEdge);
-  //       return edgesCopy;
-  //     });
-  //   } else {
-  //     const standAloneEdge = _.cloneDeep(connectedEdge[0]);
-  //     standAloneEdge.target = getNewNode.id;
-  //     standAloneEdge.source = prevNode.id;
-  //     standAloneEdge.type = "bridge";
-  //     setEdges((edges) => {
-  //       const edgesCopy = edges.filter(
-  //         (item) => item.id !== connectedEdge[0].id
-  //       );
-  //       const newlyBindedNoFloatEdge = addNewConditionEdge(
-  //         getNewNode.id,
-  //         getNewFloatNode2.id,
-  //         "No",
-  //         false
-  //       );
-  //       const newlyBindedYesFloatEdge = addNewConditionEdge(
-  //         getNewNode.id,
-  //         getNewFloatNode1.id,
-  //         "Yes",
-  //         false
-  //       );
-  //       edgesCopy.push(standAloneEdge);
-  //       edgesCopy.push(newlyBindedYesFloatEdge);
-  //       edgesCopy.push(newlyBindedNoFloatEdge);
-  //       return edgesCopy;
-  //     });
-  //     fitView({ maxZoom: 1, duration: 300 });
-  //   }
-  //   // // Edges actions or update
-  //   fitView({ maxZoom: 1, duration: 300 });
-  //   setCurrentEdge({});
-  //   setCurrentNode({});
-  //   setIsModalOpen(false);
-  //   setSelectedIndex(0);
-  // };
+    setNodes((nodes) => {
+      const nodesCopy = nodes.filter((item) => item.id !== currentNode.id);
+      const newNodes = [
+        ...nodesCopy,
+        getNewNode,
+        getNewFloatNode1,
+        getNewFloatNode2,
+      ];
+      return newNodes;
+    });
+    fitView({ maxZoom: 1, duration: 300 });
+    if (prevNode.type === NodeTypes.Condition) {
+      const standAloneEdge = _.cloneDeep(connectedEdge[0]);
+      standAloneEdge.target = getNewNode.id;
+      standAloneEdge.source = prevNode.id;
+      standAloneEdge.type = EdgeTypes.custom;
+      standAloneEdge.data.condition = connectedEdge[0]?.data.condition;
+      standAloneEdge.data.icon = true;
+      setEdges((edges) => {
+        const edgesCopy = edges.filter(
+          (item) => item.id !== connectedEdge[0].id
+        );
+        const newlyBindedNoFloatEdge = addNewConditionEdge(
+          getNewNode.id,
+          getNewFloatNode2.id,
+          "No",
+          false
+        );
+        const newlyBindedYesFloatEdge = addNewConditionEdge(
+          getNewNode.id,
+          getNewFloatNode1.id,
+          "Yes",
+          false
+        );
+        edgesCopy.push(standAloneEdge);
+        edgesCopy.push(newlyBindedYesFloatEdge);
+        edgesCopy.push(newlyBindedNoFloatEdge);
+        return edgesCopy;
+      });
+    } else {
+      const standAloneEdge = _.cloneDeep(connectedEdge[0]);
+      standAloneEdge.target = getNewNode.id;
+      standAloneEdge.source = prevNode.id;
+      standAloneEdge.type = "bridge";
+      setEdges((edges) => {
+        const edgesCopy = edges.filter(
+          (item) => item.id !== connectedEdge[0].id
+        );
+        const newlyBindedNoFloatEdge = addNewConditionEdge(
+          getNewNode.id,
+          getNewFloatNode2.id,
+          "No",
+          false
+        );
+        const newlyBindedYesFloatEdge = addNewConditionEdge(
+          getNewNode.id,
+          getNewFloatNode1.id,
+          "Yes",
+          false
+        );
+        edgesCopy.push(standAloneEdge);
+        edgesCopy.push(newlyBindedYesFloatEdge);
+        edgesCopy.push(newlyBindedNoFloatEdge);
+        return edgesCopy;
+      });
+      fitView({ maxZoom: 1, duration: 300 });
+    }
+    // // Edges actions or update
+    fitView({ maxZoom: 1, duration: 300 });
+    setCurrentEdge({});
+    setCurrentNode({});
+    setIsModalOpen(false);
+    setSelectedIndex(0);
+  };
   return {
     isModalOpen,
     currentEdge,

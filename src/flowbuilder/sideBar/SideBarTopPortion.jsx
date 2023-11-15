@@ -7,15 +7,7 @@ const SideBarTopPortion = ({ item }) => {
       <div className=" h-[80] bg-white flex items-center gap-4 cursor-pointer">
         <div className="w-[58px] h-[48px] relative">
           <div className="w-8 h-8 left-0 absolute">
-            {
-              <Imaged
-                stepType={
-                  item?.data?.actionTitle
-                    ? item?.data?.actionTitle
-                    : item?.data?.stepType
-                }
-              />
-            }
+            {<Imaged stepType={item?.data?.stepType} />}
           </div>
         </div>
         <div className="pt-[3px] pb-[3px] justify-start items-center gap-12 flex">

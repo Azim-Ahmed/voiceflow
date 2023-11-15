@@ -114,7 +114,6 @@ const addNewNode = (data) => {
     data: {
       description: data.label,
       stepType: data.stepType,
-      actionTitle: data.actionTitle,
       conditions: [],
     },
   };
@@ -148,7 +147,7 @@ const addNewConditionEdge = (sourceId, targetId, condition, icon) => {
   };
   return newEdge;
 };
-const addNewEdge = (sourceId, targetId, type) => {
+const addNewEdge = (sourceId, targetId, type, condition) => {
   let newEdgeId = uuidv4();
   let newEdge = {
     id: newEdgeId,
@@ -157,7 +156,7 @@ const addNewEdge = (sourceId, targetId, type) => {
     type: type,
     data: {
       icon: false,
-      condition: "",
+      condition: condition ?? "",
     },
   };
   return newEdge;
