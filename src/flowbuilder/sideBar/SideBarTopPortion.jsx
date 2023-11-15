@@ -21,7 +21,7 @@ const SideBarTopPortion = ({ item }) => {
         <div className="pt-[3px] pb-[3px] justify-start items-center gap-12 flex">
           <div>
             <div className="text-gray-900 text-[16px]  font-semibold">
-              {item?.data?.label}
+              {item?.data?.description}
             </div>
           </div>
         </div>
