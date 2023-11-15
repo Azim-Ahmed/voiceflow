@@ -140,11 +140,17 @@ const Flowbuilder = () => {
               position="bottom-left"
               className="Controls"
             />
-            <Background
+            {/* <Background
               gap={24}
               color="rgb(229 231 235)"
               size={3}
               variant={BackgroundVariant.Dots}
+            /> */}
+            <Background
+              gap={100}
+              color="rgb(243 244 246)"
+              size={3}
+              variant={BackgroundVariant.Lines}
             />
           </ReactFlow>
         </div>
@@ -168,7 +174,6 @@ const Flowbuilder = () => {
             setSelectedIndex={setSelectedIndex}
             selectedIndex={selectedIndex}
             conditionActionHandle={conditionActionHandle}
-            onlySteps={onlySteps}
           />
         </SelectNodeModal>
       </div>

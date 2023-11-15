@@ -218,9 +218,6 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                           <Controller
                             name={`conditions.${index}.step`}
                             control={control}
-                            rules={{
-                              required: "Please select a sender",
-                            }}
                             render={({
                               field: { onChange, value, onBlur },
                             }) => (
@@ -237,19 +234,6 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                             errors={errors}
                             name={`conditions.${index}.step`}
                           />
-                          {/* <input
-                            id={`conditions.${index}.step`}
-                            type="number"
-                            min={1}
-                            {...register(`conditions.${index}.step`, {
-                              required: {
-                                value: true,
-                                message: "Please fill the title of message",
-                              },
-                            })}
-                            className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
-                            placeholder="Enter step number"
-                          /> */}
                           <span
                             onClick={() => remove(index)}
                             className="text-red-700 py-1 cursor-pointer"
@@ -263,7 +247,6 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                         </div>
                       </div>
                     ))}
-                    {/* i give click event on button but this is not working  */}
                     <div className="flex gap-2">
                       <button
                         type="button"

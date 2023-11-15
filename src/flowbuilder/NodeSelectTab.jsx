@@ -8,8 +8,6 @@ function classNames(...classes) {
 
 const NodeSelectTab = ({
   stepActionHandle,
-  conditionActionHandle,
-  onlySteps,
   setSelectedIndex,
   selectedIndex,
 }) => {
@@ -18,19 +16,12 @@ const NodeSelectTab = ({
       label: "Add an input",
       id: 1,
     },
-    {
-      label: "Add a condition",
-      id: 2,
-    },
   ];
-  const renderedTab = onlySteps
-    ? [...documentsTakingTabs].slice(0, 1)
-    : documentsTakingTabs;
   return (
     <div className="w-full max-w-md px-4 py-4 sm:px-0">
       <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <Tab.List className="flex rounded-xl rounded-r-lg border-t-2 border-r-2 border-b-2 border-purple-100  p-1">
-          {renderedTab.map(({ label, id }) => (
+          {documentsTakingTabs.map(({ label, id }) => (
             <Tab
               key={id}
               className={({ selected }) =>
@@ -48,7 +39,7 @@ const NodeSelectTab = ({
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2 w-[450px]">
-          {renderedTab.map(({ id }, idx) => (
+          {documentsTakingTabs.map(({ id }, idx) => (
             <Tab.Panel
               key={id}
               className={classNames(
@@ -67,7 +58,7 @@ const NodeSelectTab = ({
                   ))}
                 </div>
               )}
-              {idx === 1 && (
+              {/* {idx === 1 && (
                 <div className="flex flex-wrap justify-center flex-row gap-2">
                   {nodeTypeCondtion.map((item, i) => (
                     <EachType
@@ -77,7 +68,7 @@ const NodeSelectTab = ({
                     />
                   ))}
                 </div>
-              )}
+              )} */}
             </Tab.Panel>
           ))}
         </Tab.Panels>

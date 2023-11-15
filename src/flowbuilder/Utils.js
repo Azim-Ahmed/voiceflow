@@ -52,6 +52,14 @@ export const nodeTypeStage = [
     stepType: "email",
     actionTitle: ActionTitles.send_connection,
   },
+  {
+    id: 1,
+    label: "Condition",
+    Icon: flowIcons.HasEmail,
+    type: "Condition",
+    stepType: "email",
+    actionTitle: ActionTitles.has_email,
+  },
 ];
 export const nodeTypeCondtion = [
   {
@@ -179,16 +187,11 @@ const removeDuplicates = (array1, array2) =>
   array1.filter((item) => array2.includes(item));
 
 function removeDuplicatesById(array1, array2) {
-  // Concatenate the two arrays into a single array
   const combinedArray = [...array1, ...array2];
-
-  // Remove duplicates based on the 'id' property
   const uniqueArray = _.uniqBy(combinedArray, "id");
-
   return uniqueArray;
 }
 function removeSimilarById(array1, array2) {
-  // Remove items from array1 that have the same 'id' as items in array2
   const uniqueArray1 = _.differenceBy(array1, array2, "id");
   return uniqueArray1;
 }
