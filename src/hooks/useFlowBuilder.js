@@ -57,13 +57,12 @@ function useFlowBuilder() {
     if (connectedEdge.length) {
       if (
         getIcomingNodes[0].type === NodeTypes.Condition ||
-        getIcomingNodes[0].type === NodeTypes.startNode
+        getIcomingNodes[0].type === NodeTypes.startNode ||
+        getIcomingNodes[0].type === NodeTypes.StepNode
       ) {
-        if (getIcomingNodes[0].type === NodeTypes.Condition) {
-          getNewNode.data.condition = getIcomingNodes[0]?.data?.actionTitle;
-          getNewNode.data.branch =
-            connectedEdge[0]?.data?.condition === "Yes" ? true : false;
-        }
+        // if (getIcomingNodes[0].type === NodeTypes.Condition) {
+        //   getNewNode.data.condition = getIcomingNodes[0]?.data?.actionTitle;
+        // }
         const getNewFloatNode = addNewFloatNode();
         setNodes((nodes) => {
           const newCopy = [...nodes];
@@ -144,10 +143,13 @@ function useFlowBuilder() {
         fitView({ duration: 300 });
       }
     } else {
-      const getIcomingNodes = getIncomers(currentNode, nodes, edges);
       setNodes((nodes) => {
         const nodesCopy = [...nodes];
-        const newNodes = [...nodesCopy, getNewNode, getNewTimerNode];
+        const newNodes = [
+          ...nodesCopy,
+          getNewNode,
+          // getNewTimerNode
+        ];
         return newNodes;
       });
       const prevNode = getNode(currentEdge?.source);

@@ -71,11 +71,10 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   );
 
   const onSubmit = async (data) => {
-    const itemData = { ...data };
     console.log({ data });
     handleSubmitNode(data, currentSideData);
-    // reset();
-    // setOpenSidebar(false);
+    reset();
+    setOpenSidebar(false);
   };
   return (
     <Transition appear show={sideBarOpen} as={Fragment}>
