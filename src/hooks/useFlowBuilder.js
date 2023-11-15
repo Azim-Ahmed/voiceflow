@@ -12,6 +12,7 @@ import {
 import StepNode from "../flowbuilder/StepNode";
 import ConditionNode from "../flowbuilder/ConditionNode";
 import StartNode from "../flowbuilder/StartNode";
+import EndNode from "../flowbuilder/EndNode";
 import FloatNode from "../flowbuilder/FloatNode";
 import BridgeEdge from "../flowbuilder/BridgeEdge";
 import CustomEdge from "../flowbuilder/CustomEdge";
@@ -34,6 +35,7 @@ function useFlowBuilder() {
       Condition: ConditionNode,
       startNode: StartNode,
       FloatNode: FloatNode,
+      EndNode: EndNode,
     }),
     []
   );

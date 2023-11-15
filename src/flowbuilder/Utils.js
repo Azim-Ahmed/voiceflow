@@ -7,6 +7,7 @@ export const NodeTypes = {
   Condition: "Condition",
   startNode: "startNode",
   FloatNode: "FloatNode",
+  End: "EndNode",
 };
 export const EdgeTypes = {
   bridge: "bridge", //only icon
@@ -40,6 +41,14 @@ export const nodeTypeStage = [
     label: "Input",
     Icon: flowIcons.AcceptLinkedInvite,
     type: "StepNode",
+    stepType: "email",
+    actionTitle: ActionTitles.send_connection,
+  },
+  {
+    id: 1,
+    label: "End the process",
+    Icon: flowIcons.AcceptLinkedInvite,
+    type: "EndNode",
     stepType: "email",
     actionTitle: ActionTitles.send_connection,
   },
