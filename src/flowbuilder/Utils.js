@@ -46,19 +46,19 @@ export const nodeTypeStage = [
   },
   {
     id: 1,
-    label: "End the process",
-    Icon: flowIcons.AcceptLinkedInvite,
-    type: "EndNode",
-    stepType: "email",
-    actionTitle: ActionTitles.send_connection,
-  },
-  {
-    id: 1,
     label: "Condition",
     Icon: flowIcons.HasEmail,
     type: "Condition",
     stepType: "email",
     actionTitle: ActionTitles.has_email,
+  },
+  {
+    id: 1,
+    label: "End the process",
+    Icon: flowIcons.AcceptLinkedInvite,
+    type: "EndNode",
+    stepType: "email",
+    actionTitle: ActionTitles.send_connection,
   },
 ];
 export const nodeTypeCondtion = [
