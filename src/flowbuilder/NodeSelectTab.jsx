@@ -1,16 +1,12 @@
 import { Tab } from "@headlessui/react";
-import { nodeTypeCondtion, nodeTypeStage } from "./Utils";
+import { nodeTypeStage } from "./Utils";
 import EachType from "./EachType";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const NodeSelectTab = ({
-  stepActionHandle,
-  setSelectedIndex,
-  selectedIndex,
-}) => {
+const NodeSelectTab = ({ stepActionHandle }) => {
   const documentsTakingTabs = [
     {
       label: "Add an input",
@@ -19,7 +15,7 @@ const NodeSelectTab = ({
   ];
   return (
     <div className="w-full max-w-md px-4 py-4 sm:px-0">
-      <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
+      <Tab.Group selectedIndex={0}>
         <Tab.List className="flex rounded-xl rounded-r-lg border-t-2 border-r-2 border-b-2 border-purple-100  p-1">
           {documentsTakingTabs.map(({ label, id }) => (
             <Tab

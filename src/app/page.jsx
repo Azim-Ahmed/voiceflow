@@ -32,7 +32,7 @@ const Flowbuilder = () => {
     setCurrentSideData,
     selectedIndex,
     setSelectedIndex,
-    conditionActionHandle,
+    // conditionActionHandle,
     nodeTypes,
     edgeTypes,
   } = useFlowBuilder();
@@ -167,14 +167,8 @@ const Flowbuilder = () => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           setOnlySteps={setOnlySteps}
-          setSelectedIndex={setSelectedIndex}
         >
-          <NodeSelectTab
-            stepActionHandle={stepActionHandle}
-            setSelectedIndex={setSelectedIndex}
-            selectedIndex={selectedIndex}
-            conditionActionHandle={conditionActionHandle}
-          />
+          <NodeSelectTab stepActionHandle={stepActionHandle} />
         </SelectNodeModal>
       </div>
     </div>
