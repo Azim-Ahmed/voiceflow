@@ -9,6 +9,7 @@ function useUpdateNode() {
         if (currentNode.id === item.id) {
           item.data.description = data?.description ?? "";
           item.data.gotoStep = data?.gotoStep ?? "";
+          item.data.conditions = data?.conditions ?? [];
           return item;
         }
         return item;

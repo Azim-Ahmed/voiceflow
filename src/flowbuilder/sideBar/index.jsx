@@ -15,8 +15,7 @@ import AutoComplete from "./AutoComplete";
 import { NodeTypes } from "../Utils";
 import { useReactFlow } from "reactflow";
 const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
-  const { setNodes, setEdges, getNodes, getNode, getEdges, fitView } =
-    useReactFlow();
+  const { getNodes } = useReactFlow();
   console.log({ currentSideData });
   const allNodes = getNodes();
   const except = allNodes.filter((item) => item.type !== NodeTypes.startNode);
@@ -25,7 +24,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
     email: item.data.description,
     id: item.id,
   }));
-  console.log({ renderNodes });
+  // console.log({ renderNodes });
   const addInput = () => {
     append({ id: nanoid(4), value: "", step: "" });
   };
@@ -55,6 +54,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
         ...prev,
         description: currentSideData?.data?.description,
         gotoStep: currentSideData?.data?.gotoStep,
+        conditions: currentSideData?.data?.conditions,
       }));
     }
   }, [currentSideData]);
@@ -74,8 +74,8 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
     const itemData = { ...data };
     console.log({ data });
     handleSubmitNode(data, currentSideData);
-    reset();
-    setOpenSidebar(false);
+    // reset();
+    // setOpenSidebar(false);
   };
   return (
     <Transition appear show={sideBarOpen} as={Fragment}>
@@ -141,7 +141,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                           },
                         })}
                         className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
-                        placeholder="Ask the user for their name"
+                        placeholder="Write description here"
                       />
                       <ErrorMessage errors={errors} name="description" />
                     </div>
@@ -179,7 +179,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                           },
                         })}
                         className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
-                        placeholder="Ask the user for their name"
+                        placeholder="Write description here"
                       />
                       <ErrorMessage errors={errors} name="description" />
                     </div>
@@ -198,11 +198,11 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                             {...register(`conditions.${index}.value`, {
                               required: {
                                 value: true,
-                                message: "Please fill the title of message",
+                                message: "Write the condition here",
                               },
                             })}
                             className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
-                            placeholder="Ask the user for their name"
+                            placeholder="Write description here"
                           />
                           <ErrorMessage
                             errors={errors}

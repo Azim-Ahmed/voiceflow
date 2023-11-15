@@ -87,8 +87,14 @@ const Flowbuilder = () => {
     zoom: 1,
   };
   return (
-    <>
-      <div className="flex justify-center gap-y2 bg-white h-screen w-screen">
+    <div>
+      <Navbar jsonElements={extractedJsonStructure} />
+      <div
+        style={{
+          height: "calc(100vh - 75px)",
+        }}
+        className="flex justify-center gap-y2 bg-white w-screen"
+      >
         <div
           className="bg-white"
           style={{
@@ -96,7 +102,6 @@ const Flowbuilder = () => {
               openSidebar && currentSideData.id ? "calc(100%-40%)" : "100%",
           }}
         >
-          <Navbar jsonElements={extractedJsonStructure} />
           <ReactFlow
             ref={ref}
             nodes={layoutNodes}
@@ -167,7 +172,7 @@ const Flowbuilder = () => {
           />
         </SelectNodeModal>
       </div>
-    </>
+    </div>
   );
 };
 
