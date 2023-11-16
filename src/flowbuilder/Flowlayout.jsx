@@ -28,9 +28,9 @@ const Flowlayout = (props) => {
         selected && "border border-[#6039DB] z-50"
       }`}
     >
-      <IconHandler props={props} data={data} />
+      {/* <IconHandler props={props} data={data} /> */}
       <LabelRenderer props={props} data={data} />
-      <PopoverHandler />
+      {/* <PopoverHandler /> */}
     </div>
   );
 };

@@ -60,13 +60,17 @@ function useFlowBuilder() {
         getIcomingNodes[0].type === NodeTypes.startNode ||
         getIcomingNodes[0].type === NodeTypes.StepNode
       ) {
+        console.log("opened");
         const getNewFloatNode = addNewFloatNode();
         setNodes((nodes) => {
           const newCopy = [...nodes];
           const nodesCopy = newCopy.filter(
             (item) => item.id !== currentNode.id
           );
-          const newNodes = [...nodesCopy, getNewNode, getNewFloatNode];
+          const newNodes =
+            getNewNode.type === NodeTypes.End
+              ? [...nodesCopy, getNewNode]
+              : [...nodesCopy, getNewNode, getNewFloatNode];
           return newNodes;
         });
         const prevNode = getNode(connectedEdge[0]?.source);
@@ -103,7 +107,12 @@ function useFlowBuilder() {
           const nodesCopy = newCopy.filter(
             (item) => item.id !== currentNode.id
           );
-          const newNodes = [...nodesCopy, getNewNode, getNewFloatNode];
+          const newNodes = [
+            ...nodesCopy,
+
+            getNewNode,
+            // getNewFloatNode
+          ];
           return newNodes;
         });
         const prevNode = getNode(connectedEdge[0]?.source);
@@ -139,42 +148,6 @@ function useFlowBuilder() {
         });
         fitView({ duration: 300 });
       }
-    } else {
-      setNodes((nodes) => {
-        const nodesCopy = [...nodes];
-        const newNodes = [
-          ...nodesCopy,
-          getNewNode,
-          // getNewTimerNode
-        ];
-        return newNodes;
-      });
-      const prevNode = getNode(currentEdge?.source);
-      const nextNode = getNode(currentEdge?.target);
-
-      // Edges actions or update
-      const standAloneEdge = _.cloneDeep(currentEdge);
-      standAloneEdge.target = getNewTimerNode.id;
-      standAloneEdge.source = prevNode.id;
-      standAloneEdge.type = currentEdge?.data?.condition ? "custom" : "bridge";
-      standAloneEdge.data.condition = currentEdge?.data?.condition
-        ? currentEdge.data.condition
-        : "";
-      setEdges((edges) => {
-        const edgesCopy = edges.filter((item) => item.id !== currentEdge.id);
-        const newlyBindedTimerEdge = addNewEdge(
-          getNewTimerNode.id,
-          getNewNode.id,
-          "default"
-        );
-        const newlyBridgeEdge = addNewEdge(
-          getNewNode.id,
-          nextNode.id,
-          "bridge"
-        );
-        edgesCopy.push(standAloneEdge, newlyBridgeEdge, newlyBindedTimerEdge);
-        return edgesCopy;
-      });
     }
     fitView({ maxZoom: 1, duration: 300 });
     setIsModalOpen(false);
@@ -182,90 +155,90 @@ function useFlowBuilder() {
     setCurrentNode({});
   };
 
-  const conditionActionHandle = (item) => {
-    // Nodes actions or update
-    const getNewNode = addNewNode(item);
-    const getNewFloatNode1 = addNewFloatNode();
-    const getNewFloatNode2 = addNewFloatNode();
-    const currentClickedNode = new Array(currentNode);
-    const connectedEdge = getConnectedEdges(currentClickedNode, edges);
-    const prevNode = getNode(connectedEdge[0]?.source);
-    const nextNode = getNode(connectedEdge[0]?.target);
+  // const conditionActionHandle = (item) => {
+  //   // Nodes actions or update
+  //   const getNewNode = addNewNode(item);
+  //   const getNewFloatNode1 = addNewFloatNode();
+  //   const getNewFloatNode2 = addNewFloatNode();
+  //   const currentClickedNode = new Array(currentNode);
+  //   const connectedEdge = getConnectedEdges(currentClickedNode, edges);
+  //   const prevNode = getNode(connectedEdge[0]?.source);
+  //   const nextNode = getNode(connectedEdge[0]?.target);
 
-    setNodes((nodes) => {
-      const nodesCopy = nodes.filter((item) => item.id !== currentNode.id);
-      const newNodes = [
-        ...nodesCopy,
-        getNewNode,
-        getNewFloatNode1,
-        getNewFloatNode2,
-      ];
-      return newNodes;
-    });
-    fitView({ maxZoom: 1, duration: 300 });
-    if (prevNode.type === NodeTypes.Condition) {
-      const standAloneEdge = _.cloneDeep(connectedEdge[0]);
-      standAloneEdge.target = getNewNode.id;
-      standAloneEdge.source = prevNode.id;
-      standAloneEdge.type = EdgeTypes.custom;
-      standAloneEdge.data.condition = connectedEdge[0]?.data.condition;
-      standAloneEdge.data.icon = true;
-      setEdges((edges) => {
-        const edgesCopy = edges.filter(
-          (item) => item.id !== connectedEdge[0].id
-        );
-        const newlyBindedNoFloatEdge = addNewConditionEdge(
-          getNewNode.id,
-          getNewFloatNode2.id,
-          "No",
-          false
-        );
-        const newlyBindedYesFloatEdge = addNewConditionEdge(
-          getNewNode.id,
-          getNewFloatNode1.id,
-          "Yes",
-          false
-        );
-        edgesCopy.push(standAloneEdge);
-        edgesCopy.push(newlyBindedYesFloatEdge);
-        edgesCopy.push(newlyBindedNoFloatEdge);
-        return edgesCopy;
-      });
-    } else {
-      const standAloneEdge = _.cloneDeep(connectedEdge[0]);
-      standAloneEdge.target = getNewNode.id;
-      standAloneEdge.source = prevNode.id;
-      standAloneEdge.type = "bridge";
-      setEdges((edges) => {
-        const edgesCopy = edges.filter(
-          (item) => item.id !== connectedEdge[0].id
-        );
-        const newlyBindedNoFloatEdge = addNewConditionEdge(
-          getNewNode.id,
-          getNewFloatNode2.id,
-          "No",
-          false
-        );
-        const newlyBindedYesFloatEdge = addNewConditionEdge(
-          getNewNode.id,
-          getNewFloatNode1.id,
-          "Yes",
-          false
-        );
-        edgesCopy.push(standAloneEdge);
-        edgesCopy.push(newlyBindedYesFloatEdge);
-        edgesCopy.push(newlyBindedNoFloatEdge);
-        return edgesCopy;
-      });
-      fitView({ maxZoom: 1, duration: 300 });
-    }
-    // // Edges actions or update
-    fitView({ maxZoom: 1, duration: 300 });
-    setCurrentEdge({});
-    setCurrentNode({});
-    setIsModalOpen(false);
-    setSelectedIndex(0);
-  };
+  //   setNodes((nodes) => {
+  //     const nodesCopy = nodes.filter((item) => item.id !== currentNode.id);
+  //     const newNodes = [
+  //       ...nodesCopy,
+  //       getNewNode,
+  //       getNewFloatNode1,
+  //       getNewFloatNode2,
+  //     ];
+  //     return newNodes;
+  //   });
+  //   fitView({ maxZoom: 1, duration: 300 });
+  //   if (prevNode.type === NodeTypes.Condition) {
+  //     const standAloneEdge = _.cloneDeep(connectedEdge[0]);
+  //     standAloneEdge.target = getNewNode.id;
+  //     standAloneEdge.source = prevNode.id;
+  //     standAloneEdge.type = EdgeTypes.custom;
+  //     standAloneEdge.data.condition = connectedEdge[0]?.data.condition;
+  //     standAloneEdge.data.icon = true;
+  //     setEdges((edges) => {
+  //       const edgesCopy = edges.filter(
+  //         (item) => item.id !== connectedEdge[0].id
+  //       );
+  //       const newlyBindedNoFloatEdge = addNewConditionEdge(
+  //         getNewNode.id,
+  //         getNewFloatNode2.id,
+  //         "No",
+  //         false
+  //       );
+  //       const newlyBindedYesFloatEdge = addNewConditionEdge(
+  //         getNewNode.id,
+  //         getNewFloatNode1.id,
+  //         "Yes",
+  //         false
+  //       );
+  //       edgesCopy.push(standAloneEdge);
+  //       edgesCopy.push(newlyBindedYesFloatEdge);
+  //       edgesCopy.push(newlyBindedNoFloatEdge);
+  //       return edgesCopy;
+  //     });
+  //   } else {
+  //     const standAloneEdge = _.cloneDeep(connectedEdge[0]);
+  //     standAloneEdge.target = getNewNode.id;
+  //     standAloneEdge.source = prevNode.id;
+  //     standAloneEdge.type = "bridge";
+  //     setEdges((edges) => {
+  //       const edgesCopy = edges.filter(
+  //         (item) => item.id !== connectedEdge[0].id
+  //       );
+  //       const newlyBindedNoFloatEdge = addNewConditionEdge(
+  //         getNewNode.id,
+  //         getNewFloatNode2.id,
+  //         "No",
+  //         false
+  //       );
+  //       const newlyBindedYesFloatEdge = addNewConditionEdge(
+  //         getNewNode.id,
+  //         getNewFloatNode1.id,
+  //         "Yes",
+  //         false
+  //       );
+  //       edgesCopy.push(standAloneEdge);
+  //       edgesCopy.push(newlyBindedYesFloatEdge);
+  //       edgesCopy.push(newlyBindedNoFloatEdge);
+  //       return edgesCopy;
+  //     });
+  //     fitView({ maxZoom: 1, duration: 300 });
+  //   }
+  //   // // Edges actions or update
+  //   fitView({ maxZoom: 1, duration: 300 });
+  //   setCurrentEdge({});
+  //   setCurrentNode({});
+  //   setIsModalOpen(false);
+  //   setSelectedIndex(0);
+  // };
   return {
     isModalOpen,
     currentEdge,
@@ -285,3 +258,41 @@ function useFlowBuilder() {
 }
 
 export default useFlowBuilder;
+
+// else {
+//   setNodes((nodes) => {
+//     const nodesCopy = [...nodes];
+//     const newNodes = [
+//       ...nodesCopy,
+//       getNewNode,
+//       // getNewTimerNode
+//     ];
+//     return newNodes;
+//   });
+//   const prevNode = getNode(currentEdge?.source);
+//   const nextNode = getNode(currentEdge?.target);
+
+//   // Edges actions or update
+//   const standAloneEdge = _.cloneDeep(currentEdge);
+//   standAloneEdge.target = getNewTimerNode.id;
+//   standAloneEdge.source = prevNode.id;
+//   standAloneEdge.type = currentEdge?.data?.condition ? "custom" : "bridge";
+//   standAloneEdge.data.condition = currentEdge?.data?.condition
+//     ? currentEdge.data.condition
+//     : "";
+//   setEdges((edges) => {
+//     const edgesCopy = edges.filter((item) => item.id !== currentEdge.id);
+//     const newlyBindedTimerEdge = addNewEdge(
+//       getNewTimerNode.id,
+//       getNewNode.id,
+//       "default"
+//     );
+//     const newlyBridgeEdge = addNewEdge(
+//       getNewNode.id,
+//       nextNode.id,
+//       "bridge"
+//     );
+//     edgesCopy.push(standAloneEdge, newlyBridgeEdge, newlyBindedTimerEdge);
+//     return edgesCopy;
+//   });
+// }

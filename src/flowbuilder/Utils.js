@@ -55,7 +55,7 @@ export const nodeTypeStage = [
   {
     id: 1,
     label: "End the process",
-    Icon: flowIcons.AcceptLinkedInvite,
+    Icon: flowIcons.Warning,
     type: "EndNode",
     stepType: "email",
     actionTitle: ActionTitles.send_connection,

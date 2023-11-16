@@ -54,17 +54,6 @@ const NodeSelectTab = ({ stepActionHandle }) => {
                   ))}
                 </div>
               )}
-              {/* {idx === 1 && (
-                <div className="flex flex-wrap justify-center flex-row gap-2">
-                  {nodeTypeCondtion.map((item, i) => (
-                    <EachType
-                      key={i}
-                      item={item}
-                      actionHandle={conditionActionHandle}
-                    />
-                  ))}
-                </div>
-              )} */}
             </Tab.Panel>
           ))}
         </Tab.Panels>
