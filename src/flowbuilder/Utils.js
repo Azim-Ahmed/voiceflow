@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { flowIcons } from "./flowIcons";
 import _ from "lodash";
+import { MarkerType } from "reactflow";
 
 export const NodeTypes = {
   StepNode: "StepNode",
@@ -103,6 +104,12 @@ const initialEdges = [
       condition: "",
       icon: false,
     },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 24,
+      height: 24,
+      color: "#335CCB",
+    },
   },
 ];
 const addNewNode = (data, currentNode) => {
@@ -145,6 +152,12 @@ const addNewConditionEdge = (sourceId, targetId, condition, icon) => {
       condition,
       icon,
     },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 24,
+      height: 24,
+      color: "#335CCB",
+    },
   };
   return newEdge;
 };
@@ -155,6 +168,12 @@ const addNewEdge = (sourceId, targetId, type, condition) => {
     source: sourceId,
     target: targetId,
     type: type,
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 24,
+      height: 24,
+      color: "#335CCB",
+    },
     data: {
       icon: false,
       condition: condition ?? "",

@@ -1,9 +1,4 @@
-import {
-  NodeTypes,
-  addNewEdge,
-  // addNewFloatNode,
-  addNewNode,
-} from "@/flowbuilder/Utils";
+import { NodeTypes, addNewEdge, addNewNode } from "@/flowbuilder/Utils";
 import { useReactFlow } from "reactflow";
 
 function useUpdateNode() {
