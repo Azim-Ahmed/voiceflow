@@ -116,7 +116,7 @@ const Flowbuilder = () => {
             zoomOnPinch={false}
             elementsSelectable={true}
             zoomOnDoubleClick={false}
-            deleteKeyCode={null}
+            // deleteKeyCode={null}
             defaultViewport={defaultViewport}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
