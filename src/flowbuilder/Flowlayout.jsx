@@ -20,11 +20,7 @@ const Flowlayout = (props) => {
               <TrashIcon className="w-4 h-4 mr-4" />
             </span>
           ) : (
-            <span
-              className="nopan nodrag"
-              // onClick={() => handleDelete(props.nodeData.id)}
-              style={{ visibility: "hidden" }}
-            >
+            <span className="nopan nodrag" style={{ visibility: "hidden" }}>
               a
             </span>
           )}
