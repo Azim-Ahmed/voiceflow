@@ -75,7 +75,7 @@ const initialNodes = [
   {
     id: "start-node",
     type: "startNode",
-    position: { x: 0, y: -150 },
+    position: { x: 0, y: 0 },
     data: {
       description: "Begin the process",
       stepType: "start",
@@ -85,7 +85,7 @@ const initialNodes = [
   {
     id: "node-4",
     type: "FloatNode",
-    position: { x: 0, y: 600 },
+    position: { x: 0, y: 150 },
     data: {
       description: "",
       stepType: "email",
@@ -105,12 +105,13 @@ const initialEdges = [
     },
   },
 ];
-const addNewNode = (data) => {
+const addNewNode = (data, currentNode) => {
+  console.log({ data, currentNode });
   let newFlowId = uuidv4();
   let newNode = {
     id: newFlowId,
     type: data.type,
-    position: { x: 100, y: 200 },
+    position: { x: currentNode?.position?.x, y: currentNode?.position?.y - 20 },
     data: {
       description: data.label,
       stepType: data.stepType,
@@ -119,12 +120,12 @@ const addNewNode = (data) => {
   };
   return newNode;
 };
-const addNewFloatNode = () => {
+const addNewFloatNode = (currentNode) => {
   let newFlowId = uuidv4();
   let newNode = {
     id: newFlowId,
     type: NodeTypes.FloatNode,
-    position: { x: 0, y: 0 },
+    position: { x: currentNode.position.x, y: currentNode.position.y + 100 },
     data: {
       description: "",
       stepType: "",

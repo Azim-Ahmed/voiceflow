@@ -30,8 +30,6 @@ const Flowbuilder = () => {
     isModalOpen,
     currentSideData,
     setCurrentSideData,
-    selectedIndex,
-    setSelectedIndex,
     // conditionActionHandle,
     nodeTypes,
     edgeTypes,
@@ -46,9 +44,9 @@ const Flowbuilder = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [layoutElements, setLayoutElements] = React.useState([]);
 
-  useEffect(() => {
-    setLayoutElements(getLayoutedElements([...nodes, ...edges]));
-  }, [nodes, edges]);
+  // useEffect(() => {
+  //   setLayoutElements(getLayoutedElements([...nodes, ...edges]));
+  // }, [nodes, edges]);
 
   const proOptions = { hideAttribution: true };
   const layoutNodes = layoutElements.filter((x) => x.position);
@@ -77,16 +75,16 @@ const Flowbuilder = () => {
     edges,
   };
 
-  useEffect(() => {
-    fitView({ maxZoom: 1, duration: 300 });
-  }, [size.width]);
+  // useEffect(() => {
+  //   fitView({ maxZoom: 1, duration: 300 });
+  // }, [size.width]);
 
   const defaultViewport = {
     x: size.width / 2 || 750,
     y: 20,
     zoom: 1,
   };
-  console.log({ currentSideData });
+  // console.log({ currentSideData });
   return (
     <div>
       <Navbar jsonElements={extractedJsonStructure} />
@@ -105,9 +103,11 @@ const Flowbuilder = () => {
         >
           <ReactFlow
             ref={ref}
-            nodes={layoutNodes}
-            edges={layoutEdges}
-            nodesDraggable={false}
+            nodes={nodes}
+            edges={edges}
+            // nodes={layoutNodes}
+            // edges={layoutEdges}
+            // nodesDraggable={true}
             nodesConnectable={true}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}

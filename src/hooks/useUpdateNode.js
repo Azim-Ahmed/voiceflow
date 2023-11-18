@@ -1,7 +1,7 @@
 import {
   NodeTypes,
   addNewEdge,
-  addNewFloatNode,
+  // addNewFloatNode,
   addNewNode,
 } from "@/flowbuilder/Utils";
 import { useReactFlow } from "reactflow";
@@ -13,8 +13,8 @@ function useUpdateNode() {
       // const getNewNode = addNewNode(item);
       const { conditions } = data;
       console.log({ conditions, currentNode });
-      const getNewFloatNode1 = addNewFloatNode();
-      const getNewFloatNode2 = addNewFloatNode();
+      // const getNewFloatNode1 = addNewFloatNode();
+      // const getNewFloatNode2 = addNewFloatNode();
       const newNode =
         conditions &&
         conditions.map((item) =>

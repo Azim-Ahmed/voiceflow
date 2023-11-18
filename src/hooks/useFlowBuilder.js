@@ -26,7 +26,6 @@ function useFlowBuilder() {
 
   const [currentEdge, setCurrentEdge] = useState({});
   const [currentNode, setCurrentNode] = useState({});
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [currentSideData, setCurrentSideData] = useState({});
 
   const nodeTypes = useMemo(
@@ -49,9 +48,9 @@ function useFlowBuilder() {
 
   const stepActionHandle = (item) => {
     // Nodes actions or update
-    const getNewNode = addNewNode(item);
-    // const getNewTimerNode = addTimerNode();
     const currentClickedNode = new Array(currentNode);
+    const getNewNode = addNewNode(item, currentNode);
+    // const getNewTimerNode = addTimerNode();
     const connectedEdge = getConnectedEdges(currentClickedNode, edges);
     const getIcomingNodes = getIncomers(currentNode, nodes, edges);
     if (connectedEdge.length) {
@@ -61,7 +60,7 @@ function useFlowBuilder() {
         getIcomingNodes[0].type === NodeTypes.StepNode
       ) {
         console.log("opened");
-        const getNewFloatNode = addNewFloatNode();
+        const getNewFloatNode = addNewFloatNode(currentNode);
         setNodes((nodes) => {
           const newCopy = [...nodes];
           const nodesCopy = newCopy.filter(
@@ -237,14 +236,12 @@ function useFlowBuilder() {
   //   setCurrentEdge({});
   //   setCurrentNode({});
   //   setIsModalOpen(false);
-  //   setSelectedIndex(0);
   // };
   return {
     isModalOpen,
     currentEdge,
     currentNode,
     currentSideData,
-    selectedIndex,
     nodeTypes,
     edgeTypes,
     stepActionHandle,
@@ -252,7 +249,6 @@ function useFlowBuilder() {
     setCurrentEdge,
     setIsModalOpen,
     setCurrentSideData,
-    setSelectedIndex,
     // conditionActionHandle,
   };
 }
