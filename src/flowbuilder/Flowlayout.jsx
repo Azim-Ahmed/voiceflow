@@ -1,8 +1,8 @@
 // "use client";
 import useNodeDelete from "@/hooks/useNodeDelete";
-// import TailPopover from "../ui/Popover";
 import LabelRenderer from "./NodeHelper/LabelRenderer";
-import IconHandler from "./NodeHelper/IconHandler";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { NodeTypes } from "./Utils";
 
 const Flowlayout = (props) => {
   const { handleDelete } = useNodeDelete();
@@ -12,25 +12,34 @@ const Flowlayout = (props) => {
     return (
       <>
         <>
-          <span style={{ visibility: "hidden" }}>del</span>
-          {/* <h1>Azim</h1> */}
-          {/* <TailPopover
-              handleDelete={handleDelete}
-              nodeData={props.nodeData}
-            /> */}
+          {props.nodeData.type !== NodeTypes.startNode ? (
+            <span
+              className="nopan nodrag"
+              onClick={() => handleDelete(props.nodeData.id)}
+            >
+              <TrashIcon className="w-4 h-4 mr-4" />
+            </span>
+          ) : (
+            <span
+              className="nopan nodrag"
+              // onClick={() => handleDelete(props.nodeData.id)}
+              style={{ visibility: "hidden" }}
+            >
+              a
+            </span>
+          )}
         </>
       </>
     );
   };
   return (
     <div
-      className={` flex justify-around items-center shadow-md min-h-[70px] w-[360px] relative bg-white text-black rounded-[10px] border-solid border border-[rgba(17, 24, 39, 0.10)] ${
+      className={` flex justify-between items-center shadow-md min-h-[70px] w-[360px] relative bg-white text-black rounded-[10px] border-solid border border-[rgba(17, 24, 39, 0.10)] ${
         selected && "border border-[#6039DB] z-50"
       }`}
     >
-      {/* <IconHandler props={props} data={data} /> */}
       <LabelRenderer props={props} data={data} />
-      {/* <PopoverHandler /> */}
+      <PopoverHandler />
     </div>
   );
 };

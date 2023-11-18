@@ -14,7 +14,8 @@ function useNodeDelete() {
   const edges = getEdges();
   const handleDelete = (deleteId) => {
     const currentNode = nodesOrigin.find((item) => item.id === deleteId);
-    if (currentNode.type === NodeTypes.Condition) {
+    console.log({ deleteId, currentNode, nodesOrigin });
+    if (currentNode?.type === NodeTypes.Condition) {
       const azimData = removeTreeOfOutgoers(currentNode);
       const checkDuplic = checkduplicity(azimData.flat());
       const floatNode = addNewFloatNode();
