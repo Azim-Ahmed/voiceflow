@@ -90,19 +90,10 @@ function useNodeDelete() {
   let storedData = [];
   function removeTreeOfOutgoers(newNode) {
     const outgoers = getOutgoers(newNode, nodesOrigin, edges);
-    // const connectedEdgess = getConnectedEdges(new Array(newNode), edges);
     storedData.push([...outgoers, newNode]);
     if (outgoers.length) {
-      // setNodes((nodes) => removeDuplicates(nodes, outgoers))
-      // deleteElements({ nodes: [...outgoers, newNode] });
       outgoers.forEach((outgoer) => removeTreeOfOutgoers(outgoer));
     }
-    // if (connectedEdgess.length) {
-    //   deleteElements({ nodes: connectedEdgess });
-    //   connectedEdgess.forEach((outgoer) => {
-    //     removeTreeOfOutgoers(outgoer);
-    //   });
-    // }
     return storedData;
   }
 
