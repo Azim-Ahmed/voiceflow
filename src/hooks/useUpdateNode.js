@@ -5,6 +5,7 @@ function useUpdateNode() {
   const { setNodes, setEdges } = useReactFlow();
   const handleSubmitNode = (data, currentNode) => {
     if (currentNode.type === NodeTypes.Condition) {
+      // TODO
       // const getNewNode = addNewNode(item);
       const { conditions } = data;
       console.log({ conditions, currentNode });
