@@ -14,8 +14,12 @@ const Flowlayout = (props) => {
         <>
           {props.nodeData.type !== NodeTypes.startNode ? (
             <span
-              className="nopan nodrag"
-              onClick={() => handleDelete(props.nodeData.id)}
+              className="nopan nodrag cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(props.nodeData.id);
+                // props.nodeData.id === state.nodeSideBarOpen.activeId &&
+              }}
             >
               <TrashIcon className="w-4 h-4 mr-4" />
             </span>

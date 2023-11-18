@@ -86,6 +86,7 @@ const Flowbuilder = () => {
     y: 20,
     zoom: 1,
   };
+  console.log({ currentSideData });
   return (
     <div>
       <Navbar jsonElements={extractedJsonStructure} />
