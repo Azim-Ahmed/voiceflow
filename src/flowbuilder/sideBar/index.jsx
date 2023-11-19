@@ -111,8 +111,8 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                     {`Type : ${currentSideData.type}`}
                   </label>
                 </div>
-                {currentSideData.type ===
-                (NodeTypes.startNode || NodeTypes.End) ? (
+                {currentSideData.type === NodeTypes.startNode ||
+                currentSideData.type === NodeTypes.End ? (
                   <div className="space-y-2">
                     <label htmlFor="" className="text-gray-900">
                       Description :
