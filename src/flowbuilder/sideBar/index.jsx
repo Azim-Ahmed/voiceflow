@@ -111,7 +111,8 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                     {`Type : ${currentSideData.type}`}
                   </label>
                 </div>
-                {currentSideData.type === "startNode" ? (
+                {currentSideData.type ===
+                (NodeTypes.startNode || NodeTypes.End) ? (
                   <div className="space-y-2">
                     <label htmlFor="" className="text-gray-900">
                       Description :
@@ -130,7 +131,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                     <ErrorMessage errors={errors} name="description" />
                     <Button type="submit">Save</Button>
                   </div>
-                ) : currentSideData.type === "StepNode" ? (
+                ) : currentSideData.type === NodeTypes.StepNode ? (
                   <>
                     <div className="space-y-2">
                       <label htmlFor="" className="text-gray-900">
