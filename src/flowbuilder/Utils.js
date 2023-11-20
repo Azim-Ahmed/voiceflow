@@ -132,7 +132,7 @@ const addEmptyNode = (data) => {
   let newNode = {
     id: newFlowId,
     type: data.type,
-    position: { x: 15, y: 40 },
+    position: { x: -380, y: 272 },
     data: {
       description: data.label,
       stepType: data.stepType,

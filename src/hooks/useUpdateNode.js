@@ -46,6 +46,7 @@ function useUpdateNode() {
 
         console.log({ newEdge });
         const newUpdatedEdges = [...clonededges, ...newEdge];
+        // const newStage = newUpdatedEdges.filter(item => item.source )
         console.log({ newUpdatedEdges });
         return newUpdatedEdges;
         // const maped = clonededges.map((item) => {
