@@ -8,6 +8,7 @@ import ReactFlow, {
   useEdgesState,
   ReactFlowProvider,
   BackgroundVariant,
+  Panel,
 } from "reactflow";
 import _ from "lodash";
 import "./styles.css";
@@ -141,18 +142,22 @@ const Flowbuilder = () => {
               position="bottom-left"
               className="Controls"
             />
-            {/* <Background
-              gap={24}
-              color="rgb(229 231 235)"
-              size={3}
-              variant={BackgroundVariant.Dots}
-            /> */}
             <Background
               gap={100}
               color="rgb(243 244 246)"
               size={3}
               variant={BackgroundVariant.Lines}
             />
+            <Panel position="top-left">
+              <button
+                className={
+                  " rounded-lg py-2.5 px-10  text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-blue-800 shadow text-white"
+                }
+                onClick={() => setIsModalOpen(true)}
+              >
+                Add Empty Node
+              </button>
+            </Panel>
           </ReactFlow>
         </div>
         {/* Update A node */}
@@ -167,7 +172,6 @@ const Flowbuilder = () => {
         <SelectNodeModal
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
-          setOnlySteps={setOnlySteps}
         >
           <NodeSelectTab stepActionHandle={stepActionHandle} />
         </SelectNodeModal>

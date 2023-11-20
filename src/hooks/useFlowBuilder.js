@@ -4,6 +4,7 @@ import { getConnectedEdges, getIncomers, useReactFlow } from "reactflow";
 import {
   EdgeTypes,
   NodeTypes,
+  addEmptyNode,
   addNewConditionEdge,
   addNewEdge,
   addNewFloatNode,
@@ -50,6 +51,7 @@ function useFlowBuilder() {
     // Nodes actions or update
     const currentClickedNode = new Array(currentNode);
     const getNewNode = addNewNode(item, currentNode);
+    const getNewEmptyNode = addEmptyNode(item, currentNode);
     // const getNewTimerNode = addTimerNode();
     const connectedEdge = getConnectedEdges(currentClickedNode, edges);
     const getIcomingNodes = getIncomers(currentNode, nodes, edges);
@@ -147,6 +149,12 @@ function useFlowBuilder() {
         });
         fitView({ duration: 300 });
       }
+    } else {
+      setNodes((nodes) => {
+        const newCopy = [...nodes];
+        const newNodes = [...newCopy, getNewEmptyNode];
+        return newNodes;
+      });
     }
     fitView({ maxZoom: 1, duration: 300 });
     setIsModalOpen(false);

@@ -5,20 +5,10 @@ export default function SelectNodeModal({
   isModalOpen,
   setIsModalOpen,
   children,
-  setOnlySteps,
-  setSelectedIndex,
 }) {
-  let [isOpen, setIsOpen] = useState(true);
-
   function closeModal() {
-    setIsOpen(false);
-  }
-
-  const handleCancel = () => {
     setIsModalOpen(false);
-    setOnlySteps(true);
-    setSelectedIndex(0);
-  };
+  }
 
   return (
     <>

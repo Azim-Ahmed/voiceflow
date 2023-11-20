@@ -127,6 +127,20 @@ const addNewNode = (data, currentNode) => {
   };
   return newNode;
 };
+const addEmptyNode = (data) => {
+  let newFlowId = uuidv4();
+  let newNode = {
+    id: newFlowId,
+    type: data.type,
+    position: { x: 15, y: 40 },
+    data: {
+      description: data.label,
+      stepType: data.stepType,
+      conditions: [],
+    },
+  };
+  return newNode;
+};
 const addNewFloatNode = (currentNode) => {
   let newFlowId = uuidv4();
   let newNode = {
@@ -224,6 +238,7 @@ export {
   removeDuplicates,
   removeDuplicatesById,
   removeSimilarById,
+  addEmptyNode,
   initialNodes,
   initialEdges,
 };
