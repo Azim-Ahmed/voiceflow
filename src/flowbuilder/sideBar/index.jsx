@@ -156,12 +156,15 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                       </label>
                       <input
                         type="text"
-                        {...register("gotoStep", {
-                          required: {
-                            value: true,
-                            message: "Step field is required",
-                          },
-                        })}
+                        {...register(
+                          "gotoStep"
+                          //  {
+                          //   required: {
+                          //     value: true,
+                          //     message: "Step field is required",
+                          //   },
+                          // }
+                        )}
                         className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
                         placeholder="Title of the message"
                       />

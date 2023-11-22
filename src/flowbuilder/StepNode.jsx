@@ -6,13 +6,13 @@ export default function StepNode(props) {
     <>
       <Handle
         type="target"
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
         position={Position.Top}
       />
       <Flowlayout nodeData={props} type="stepNode" />
       <Handle
         type="source"
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
         position={Position.Bottom}
       />
     </>

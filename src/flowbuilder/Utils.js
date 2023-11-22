@@ -46,7 +46,7 @@ export const nodeTypeStage = [
     actionTitle: ActionTitles.send_connection,
   },
   {
-    id: 1,
+    id: 2,
     label: "Condition",
     Icon: flowIcons.HasEmail,
     type: "Condition",
@@ -54,7 +54,7 @@ export const nodeTypeStage = [
     actionTitle: ActionTitles.has_email,
   },
   {
-    id: 1,
+    id: 3,
     label: "End the process",
     Icon: flowIcons.Warning,
     type: "EndNode",
@@ -83,16 +83,16 @@ const initialNodes = [
       conditions: [],
     },
   },
-  {
-    id: "node-4",
-    type: "FloatNode",
-    position: { x: 0, y: 150 },
-    data: {
-      description: "",
-      stepType: "email",
-      conditions: [],
-    },
-  },
+  // {
+  //   id: "node-4",
+  //   type: "FloatNode",
+  //   position: { x: 0, y: 150 },
+  //   data: {
+  //     description: "",
+  //     stepType: "email",
+  //     conditions: [],
+  //   },
+  // },
 ];
 const initialEdges = [
   {
@@ -132,7 +132,7 @@ const addEmptyNode = (data) => {
   let newNode = {
     id: newFlowId,
     type: data.type,
-    position: { x: -380, y: 272 },
+    position: { x: 0, y: 272 },
     data: {
       description: data.label,
       stepType: data.stepType,
@@ -176,7 +176,7 @@ const addNewConditionEdge = (sourceId, targetId, condition, icon) => {
   return newEdge;
 };
 const addNewEdge = (sourceId, targetId, type, condition) => {
-  let newEdgeId = uuidv4();
+  let newEdgeId = `${sourceId + ">" + targetId}`;
   let newEdge = {
     id: newEdgeId,
     source: sourceId,

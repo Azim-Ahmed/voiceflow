@@ -9,7 +9,11 @@ import ReactFlow, {
   ReactFlowProvider,
   BackgroundVariant,
   Panel,
+  addEdge,
+  MarkerType,
+  updateEdge,
 } from "reactflow";
+import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 import "./styles.css";
 import "reactflow/dist/style.css";
@@ -31,7 +35,7 @@ const Flowbuilder = () => {
     isModalOpen,
     currentSideData,
     setCurrentSideData,
-    // conditionActionHandle,
+    conditionActionHandle,
     nodeTypes,
     edgeTypes,
   } = useFlowBuilder();
@@ -63,7 +67,7 @@ const Flowbuilder = () => {
       } else if (node.type === NodeTypes.FloatNode) {
         return;
       } else {
-        fitView({ maxZoom: 1, duration: 300 });
+        // fitView({ maxZoom: 1, duration: 300 });
         setCurrentSideData(node);
         setOpenSidebar(true);
       }
@@ -76,16 +80,47 @@ const Flowbuilder = () => {
     edges,
   };
 
-  // useEffect(() => {
-  //   fitView({ maxZoom: 1, duration: 300 });
-  // }, [size.width]);
-
   const defaultViewport = {
     x: size.width / 2 || 750,
     y: 20,
     zoom: 1,
   };
-  // console.log({ currentSideData });
+
+  // const onConnect = useCallback(
+  //   (params) =>
+  //     setEdges((eds) =>
+  //       addEdge({ ...params, animated: true, style: { stroke: "#fff" } }, eds)
+  //     ),
+  //   []
+  // );
+
+  const onConnect = useCallback(
+    (params) => {
+      if (params.source === params.target) return;
+      const addNewEdge = {
+        id: uuidv4(),
+        source: params.source,
+        target: params.target,
+        type: "default",
+        style: { stroke: "black", strokeWidth: "1" },
+        labelBgBorderRadius: 4,
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 24,
+          height: 24,
+          color: "#335CCB",
+        },
+      };
+
+      setEdges((eds) => addEdge({ ...addNewEdge, ...params }, eds));
+    },
+    [setEdges]
+  );
+  const onEdgeUpdate = useCallback(
+    (oldEdge, newConnection) =>
+      setEdges((els) => updateEdge(oldEdge, newConnection, els)),
+    []
+  );
   return (
     <div>
       <Navbar jsonElements={extractedJsonStructure} />
@@ -106,10 +141,10 @@ const Flowbuilder = () => {
             ref={ref}
             nodes={nodes}
             edges={edges}
+            onEdgeUpdate={onEdgeUpdate}
             // nodes={layoutNodes}
             // edges={layoutEdges}
-            // nodesDraggable={true}
-            nodesConnectable={true}
+            onConnect={onConnect}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             proOptions={proOptions}
@@ -173,7 +208,10 @@ const Flowbuilder = () => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         >
-          <NodeSelectTab stepActionHandle={stepActionHandle} />
+          <NodeSelectTab
+            stepActionHandle={stepActionHandle}
+            conditionActionHandle={conditionActionHandle}
+          />
         </SelectNodeModal>
       </div>
     </div>

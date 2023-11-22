@@ -6,13 +6,13 @@ const ConditionNode = (props) => {
     <>
       <Handle
         type="target"
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
         position={Position.Top}
       />
       <Flowlayout nodeData={props} type="condition" />
       <Handle
         type="source"
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
         position={Position.Bottom}
       />
     </>

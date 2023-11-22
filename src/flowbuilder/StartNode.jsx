@@ -5,7 +5,7 @@ export default function StartNode(props) {
     <>
       <Flowlayout nodeData={props} type="startNode" />
       <Handle
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
         type="source"
         position={Position.Bottom}
       />

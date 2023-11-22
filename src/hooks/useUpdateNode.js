@@ -1,4 +1,5 @@
 import { NodeTypes, addNewEdge, addNewNode } from "@/flowbuilder/Utils";
+import _ from "lodash";
 import { useReactFlow } from "reactflow";
 
 function useUpdateNode() {
@@ -46,9 +47,11 @@ function useUpdateNode() {
 
         console.log({ newEdge });
         const newUpdatedEdges = [...clonededges, ...newEdge];
+        let uniqueArray = _.uniqBy(newUpdatedEdges, "id");
+
         // const newStage = newUpdatedEdges.filter(item => item.source )
-        console.log({ newUpdatedEdges });
-        return newUpdatedEdges;
+        console.log({ uniqueArray });
+        return uniqueArray;
         // const maped = clonededges.map((item) => {
         //   if (currentNode.id === item.id) {
         //     item.data.description = data?.description ?? "";
