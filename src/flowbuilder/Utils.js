@@ -132,7 +132,10 @@ const addEmptyNode = (data) => {
   let newNode = {
     id: newFlowId,
     type: data.type,
-    position: { x: 0, y: 272 },
+    position: {
+      x: Math.floor(Math.random() * 100),
+      y: Math.floor(Math.random() * 400),
+    },
     data: {
       description: data.label,
       stepType: data.stepType,
@@ -161,11 +164,13 @@ const addNewConditionEdge = (sourceId, targetId, condition, icon) => {
     id: newEdgeId,
     source: sourceId,
     target: targetId,
+    labelBgBorderRadius: 4,
     type: EdgeTypes.custom,
     data: {
       condition,
       icon,
     },
+    style: { stroke: "black", strokeWidth: "1.3" },
     markerEnd: {
       type: MarkerType.Arrow,
       width: 24,
@@ -182,6 +187,8 @@ const addNewEdge = (sourceId, targetId, type, condition) => {
     source: sourceId,
     target: targetId,
     type: type,
+    style: { stroke: "black", strokeWidth: "1.3" },
+    labelBgBorderRadius: 4,
     markerEnd: {
       type: MarkerType.Arrow,
       width: 24,

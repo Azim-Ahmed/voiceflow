@@ -24,7 +24,11 @@ const BridgeEdge = ({
 
   return (
     <>
-      <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
+      <BaseEdge
+        path={edgePath}
+        markerEnd={markerEnd}
+        style={{ stroke: "black", strokeWidth: "1" }}
+      />
       <EdgeLabelRenderer>
         <div
           style={{

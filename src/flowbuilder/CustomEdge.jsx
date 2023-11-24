@@ -16,7 +16,7 @@ function EdgeLabel({ transform, label }) {
         fontSize: 12,
         transform,
       }}
-      className={`nodrag nopan absolute items-center flex justify-center font-bold rounded-[2px] w- h-4 text-black `}
+      className={`nodrag nopan absolute items-center flex justify-center font-bold rounded-[2px] w- h-4 text-black bg-white px-1`}
     >
       {label}
     </div>
@@ -32,6 +32,7 @@ const CustomEdge = ({
   sourcePosition,
   targetPosition,
   data,
+  style,
 }) => {
   const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
@@ -40,10 +41,15 @@ const CustomEdge = ({
     targetX,
     targetY,
     targetPosition,
+    style,
   });
   return (
     <>
-      <BaseEdge id={id} path={edgePath} />
+      <BaseEdge
+        id={id}
+        path={edgePath}
+        style={{ stroke: "black", strokeWidth: "1" }}
+      />
       <EdgeLabelRenderer>
         {data.condition && (
           <EdgeLabel

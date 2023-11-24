@@ -5,7 +5,7 @@ export default function EndNode(props) {
     <>
       <Flowlayout nodeData={props} type="EndNode" />
       <Handle
-        style={{ visibility: "hidden" }}
+        // style={{ visibility: "hidden" }}
         type="target"
         position={Position.Top}
       />

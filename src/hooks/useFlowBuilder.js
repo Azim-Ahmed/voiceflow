@@ -52,6 +52,7 @@ function useFlowBuilder() {
     const currentClickedNode = new Array(currentNode);
     const getNewNode = addNewNode(item, currentNode);
     const getNewEmptyNode = addEmptyNode(item, currentNode);
+    // getNewEmptyNode.selected = true;
     // const getNewTimerNode = addTimerNode();
     const connectedEdge = getConnectedEdges(currentClickedNode, edges);
     const getIcomingNodes = getIncomers(currentNode, nodes, edges);

@@ -101,7 +101,7 @@ const Flowbuilder = () => {
         id: uuidv4(),
         source: params.source,
         target: params.target,
-        type: "default",
+        type: "smoothstep",
         style: { stroke: "black", strokeWidth: "1" },
         labelBgBorderRadius: 4,
         markerEnd: {
