@@ -86,22 +86,15 @@ const Flowbuilder = () => {
     zoom: 1,
   };
 
-  // const onConnect = useCallback(
-  //   (params) =>
-  //     setEdges((eds) =>
-  //       addEdge({ ...params, animated: true, style: { stroke: "#fff" } }, eds)
-  //     ),
-  //   []
-  // );
-
   const onConnect = useCallback(
     (params) => {
       if (params.source === params.target) return;
+
       const addNewEdge = {
         id: uuidv4(),
         source: params.source,
         target: params.target,
-        type: "smoothstep",
+        type: "custom",
         style: { stroke: "black", strokeWidth: "1" },
         labelBgBorderRadius: 4,
         markerEnd: {
@@ -109,6 +102,10 @@ const Flowbuilder = () => {
           width: 24,
           height: 24,
           color: "#335CCB",
+        },
+        data: {
+          icon: false,
+          condition: "",
         },
       };
 
@@ -168,6 +165,9 @@ const Flowbuilder = () => {
                 setCurrentEdge(f);
                 setOnlySteps(true);
                 setIsModalOpen(true);
+              } else {
+                setCurrentSideData(f);
+                setOpenSidebar(true);
               }
             }}
             onNodeClick={(e, f) => handleNodeClick(e, f)}

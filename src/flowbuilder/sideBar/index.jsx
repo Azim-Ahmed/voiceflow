@@ -1,11 +1,6 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import SideBarTopPortion from "./SideBarTopPortion";
-import {
-  useForm,
-  useFieldArray,
-  SubmitHandler,
-  Controller,
-} from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
 import { Transition } from "@headlessui/react";
 import useUpdateNode from "@/hooks/useUpdateNode";
@@ -14,6 +9,7 @@ import { nanoid } from "nanoid";
 import AutoComplete from "./AutoComplete";
 import { NodeTypes } from "../Utils";
 import { useReactFlow } from "reactflow";
+import useUpdateEdge from "@/hooks/useUpdateEdge";
 const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const { getNodes } = useReactFlow();
   // console.log({ currentSideData });
@@ -41,23 +37,23 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const {
     handleSubmit,
     control,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
     register,
     reset,
-    // setValue,
-    // setError,
-    // clearErrors,
   } = useForm({
     defaultValues,
     mode: "onChange",
   });
   const { handleSubmitNode } = useUpdateNode();
+  const { handleSubmitEdge } = useUpdateEdge();
 
   useEffect(() => {
     if (currentSideData) {
       setdefaultValues((prev) => ({
         ...prev,
-        description: currentSideData?.data?.description,
+        description:
+          currentSideData?.data?.description ||
+          currentSideData?.data?.condition,
         gotoStep: currentSideData?.data?.gotoStep,
         conditions: currentSideData?.data?.conditions,
       }));
@@ -70,14 +66,18 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
-      control, // control props comes from useForm (optional: if you are using FormContext)
-      name: "conditions", // unique name for your Field Array
+      control,
+      name: "conditions",
     }
   );
 
   const onSubmit = async (data) => {
-    // console.log({ data });
-    handleSubmitNode(data, currentSideData);
+    console.log({ data, currentSideData });
+    if (currentSideData.source) {
+      handleSubmitEdge(data, currentSideData);
+    } else {
+      handleSubmitNode(data, currentSideData);
+    }
     reset();
     setOpenSidebar(false);
   };
