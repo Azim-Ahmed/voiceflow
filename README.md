@@ -11,7 +11,6 @@ yarn dev
 # or
 pnpm dev
 # or
-bun dev
 ```
 ![image](https://github.com/Azim-Ahmed/voiceflow/assets/67516192/2aa62e64-edd1-424b-bf54-cf008370d5cf)
 
