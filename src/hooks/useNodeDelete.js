@@ -42,7 +42,7 @@ function useNodeDelete() {
         filteredEdges.push(...updatedIncomingEdges);
         return filteredEdges;
       });
-      fitView({ duration: 300 });
+      // fitView({ duration: 300 });
     } else {
       const connectedEdge = getConnectedEdges(new Array(currentNode), edges);
       setNodes((nodes) => {
@@ -83,7 +83,7 @@ function useNodeDelete() {
         filteredEdges.push(...updatedIncomingEdges);
         return filteredEdges;
       });
-      fitView({ duration: 300 });
+      // fitView({ duration: 300 });
     }
   };
 

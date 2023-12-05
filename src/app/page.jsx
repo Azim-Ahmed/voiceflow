@@ -157,8 +157,6 @@ const Flowbuilder = () => {
               setOpenSidebar(false);
             }}
             panOnScroll
-            maxZoom={1}
-            minZoom={1}
             preventScrolling
             onEdgeClick={(e, f) => {
               if (e.target.tagName === "BUTTON" || e.target.tagName === "svg") {
