@@ -40,7 +40,7 @@ export const nodeTypeStage = [
   {
     id: 1,
     label: "Input",
-    Icon: flowIcons.AcceptLinkedInvite,
+    // Icon: flowIcons.AcceptLinkedInvite,
     type: "StepNode",
     stepType: "email",
     actionTitle: ActionTitles.send_connection,
@@ -48,7 +48,7 @@ export const nodeTypeStage = [
   {
     id: 2,
     label: "Condition",
-    Icon: flowIcons.HasEmail,
+    // Icon: flowIcons.HasEmail,
     type: "Condition",
     stepType: "email",
     actionTitle: ActionTitles.has_email,
@@ -56,7 +56,7 @@ export const nodeTypeStage = [
   {
     id: 3,
     label: "End the process",
-    Icon: flowIcons.Warning,
+    // Icon: flowIcons.Warning,
     type: "EndNode",
     stepType: "email",
     actionTitle: ActionTitles.send_connection,

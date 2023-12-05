@@ -56,13 +56,12 @@ function useFlowBuilder() {
     // const getNewTimerNode = addTimerNode();
     const connectedEdge = getConnectedEdges(currentClickedNode, edges);
     const getIcomingNodes = getIncomers(currentNode, nodes, edges);
-    if (connectedEdge.length) {
+    if (connectedEdge.length > 1) {
       if (
         getIcomingNodes[0].type === NodeTypes.Condition ||
         getIcomingNodes[0].type === NodeTypes.startNode ||
         getIcomingNodes[0].type === NodeTypes.StepNode
       ) {
-        console.log("opened");
         const getNewFloatNode = addNewFloatNode(currentNode);
         setNodes((nodes) => {
           const newCopy = [...nodes];
