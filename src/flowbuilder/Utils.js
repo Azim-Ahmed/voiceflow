@@ -104,10 +104,12 @@ const addNewNode = (data, currentNode) => {
   let newNode = {
     id: newFlowId,
     type: data.type,
-    position: { x: currentNode?.position?.x, y: currentNode?.position?.y - 20 },
+    position: {
+      x: Math.floor(Math.random() * 100) + currentNode?.position?.x,
+      y: Math.floor(Math.random() * 400) + currentNode?.position?.y - 20,
+    },
     data: {
       description: data.label,
-      stepType: data.stepType,
       conditions: [],
     },
   };

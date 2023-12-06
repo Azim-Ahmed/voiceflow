@@ -15,7 +15,12 @@ function useUpdateNode() {
       const newNode =
         conditions &&
         conditions.map((item) =>
-          item.step.id ? "" : addNewNode({ type: NodeTypes.FloatNode })
+          item.step.id
+            ? ""
+            : addNewNode(
+                { type: NodeTypes.StepNode, label: "Input" },
+                currentNode
+              )
         );
       console.log({ newNode });
       setNodes((nodes) => {
@@ -30,19 +35,18 @@ function useUpdateNode() {
           return item;
         });
 
-        // const newEmbeddedNode = [...maped, ...newNode];
-        // return newEmbeddedNode;
-        return maped;
+        const newEmbeddedNode = [...maped, ...newNode];
+        return newEmbeddedNode;
+        // return maped;
       });
 
       setEdges((edges) => {
         const clonededges = [...edges];
         const newEdge =
           conditions &&
-          conditions.map(
-            (item, index) =>
-              addNewEdge(currentNode.id, item.step.id, "custom", item.value)
-            // addNewEdge(currentNode.id, newNode[index].id, "custom", item.value)
+          conditions.map((item, index) =>
+            // addNewEdge(currentNode.id, item.step.id, "custom", item.value)
+            addNewEdge(currentNode.id, newNode[index].id, "custom", item.value)
           );
 
         console.log({ newEdge });
