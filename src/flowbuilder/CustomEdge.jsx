@@ -1,14 +1,5 @@
-// import { PlusIcon } from "@heroicons/react/24/outline";
 import React, { FC } from "react";
-import {
-  EdgeProps,
-  getBezierPath,
-  EdgeLabelRenderer,
-  BaseEdge,
-  getSmoothStepPath,
-} from "reactflow";
-
-// this is a little helper component to render the actual edge label
+import { EdgeLabelRenderer, BaseEdge, getSmoothStepPath } from "reactflow";
 function EdgeLabel({ transform, label }) {
   return (
     <div
@@ -33,6 +24,7 @@ const CustomEdge = ({
   targetPosition,
   data,
   style,
+  markerEnd,
 }) => {
   const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
@@ -48,6 +40,7 @@ const CustomEdge = ({
       <BaseEdge
         id={id}
         path={edgePath}
+        markerEnd={markerEnd}
         style={{ stroke: "black", strokeWidth: "1" }}
       />
       <EdgeLabelRenderer>
