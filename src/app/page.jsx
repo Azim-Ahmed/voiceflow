@@ -1,9 +1,8 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import ReactFlow, {
   Controls,
   Background,
-  useReactFlow,
   useNodesState,
   useEdgesState,
   ReactFlowProvider,
@@ -24,7 +23,6 @@ import useFlowBuilder from "../hooks/useFlowBuilder";
 import Navbar from "../flowbuilder/Navbar";
 import SideBar from "../flowbuilder/sideBar";
 import useElementSize from "@/hooks/useElementSize";
-import { getLayoutedElements } from "@/flowbuilder/WorkflowLayoutUtils";
 
 const Flowbuilder = () => {
   const {
@@ -44,18 +42,10 @@ const Flowbuilder = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [size, ref] = useElementSize();
 
-  const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [layoutElements, setLayoutElements] = React.useState([]);
-
-  // useEffect(() => {
-  //   setLayoutElements(getLayoutedElements([...nodes, ...edges]));
-  // }, [nodes, edges]);
 
   const proOptions = { hideAttribution: true };
-  const layoutNodes = layoutElements.filter((x) => x.position);
-  const layoutEdges = layoutElements.filter((x) => !x.position);
 
   const handleNodeClick = useCallback(
     (event, node) => {
