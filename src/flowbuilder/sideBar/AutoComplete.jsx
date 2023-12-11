@@ -16,7 +16,12 @@ const AutoComplete = ({ value, onChange, onBlur, renderNodes }) => {
             .includes(query.toLowerCase().replace(/\s+/g, ""));
         }) || [];
 
+  console.log(
+    "🚀 ~ file: AutoComplete.jsx:10 ~ AutoComplete ~ filteredPeople:",
+    filteredPeople
+  );
   const handleInputFocus = () => comboBtn.current?.click();
+
   return (
     <div className="w-full">
       <Combobox value={value} onChange={onChange}>

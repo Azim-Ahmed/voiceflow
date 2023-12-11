@@ -21,6 +21,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const FinalNode = exceptFloat.filter(
     (item) => item.id !== currentSideData.id
   );
+  console.log("🚀 ~ file: index.jsx:24 ~ SideBar ~ FinalNode:", FinalNode);
   const renderNodes = FinalNode.map((item) => ({
     node: item.data.description,
     id: item.id,
@@ -49,9 +50,8 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const { handleSubmitEdge } = useUpdateEdge();
 
   const edges = getConnectedEdges([currentSideData], getEdges()).filter(
-    (item) => item.source !== "start-node"
+    (item) => item.source !== "start-node" && item.source === currentSideData.id
   );
-  console.log("🚀 ~ file: index.jsx:54 ~ SideBar ~ edges:", edges);
 
   useEffect(() => {
     if (currentSideData) {
@@ -61,12 +61,15 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
           currentSideData?.data?.description ||
           currentSideData?.data?.condition,
         gotoStep: currentSideData?.data?.gotoStep,
-        conditions: edges.map((item) => ({
-          id: item.id,
-          value: item.data.condition,
-          step: item.data.step || "",
-          target: item.target,
-        })),
+        conditions: edges.map((item) => {
+          const step = FinalNode.find((i) => i.id === item.target).data;
+          return {
+            id: item.id,
+            value: item.data.condition,
+            step: { id: item.target, node: step.description },
+            target: item.target,
+          };
+        }),
       }));
     }
   }, [currentSideData]);
@@ -91,7 +94,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
     reset();
     setOpenSidebar(false);
   };
-
+  console.log({ fields });
   return (
     <Transition appear show={sideBarOpen} as={Fragment}>
       <Transition.Child
