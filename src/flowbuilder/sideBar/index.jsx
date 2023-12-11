@@ -8,10 +8,10 @@ import { Button } from "@/components/button";
 import { nanoid } from "nanoid";
 import AutoComplete from "./AutoComplete";
 import { NodeTypes } from "../Utils";
-import { useReactFlow } from "reactflow";
+import { getConnectedEdges, useReactFlow } from "reactflow";
 import useUpdateEdge from "@/hooks/useUpdateEdge";
 const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
-  const { getNodes } = useReactFlow();
+  const { getNodes, getEdges } = useReactFlow();
   // console.log({ currentSideData });
   const allNodes = getNodes();
   const except = allNodes.filter((item) => item.type !== NodeTypes.startNode);
@@ -29,6 +29,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const addInput = () => {
     append({ id: nanoid(8), value: "", step: "" });
   };
+
   const initialDefault = {
     description: "",
     gotoStep: "",
@@ -47,6 +48,11 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const { handleSubmitNode } = useUpdateNode();
   const { handleSubmitEdge } = useUpdateEdge();
 
+  const edges = getConnectedEdges([currentSideData], getEdges()).filter(
+    (item) => item.source !== "start-node"
+  );
+  console.log("🚀 ~ file: index.jsx:54 ~ SideBar ~ edges:", edges);
+
   useEffect(() => {
     if (currentSideData) {
       setdefaultValues((prev) => ({
@@ -55,7 +61,12 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
           currentSideData?.data?.description ||
           currentSideData?.data?.condition,
         gotoStep: currentSideData?.data?.gotoStep,
-        conditions: currentSideData?.data?.conditions,
+        conditions: edges.map((item) => ({
+          id: item.id,
+          value: item.data.condition,
+          step: item.data.step || "",
+          target: item.target,
+        })),
       }));
     }
   }, [currentSideData]);
@@ -72,7 +83,6 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   );
 
   const onSubmit = async (data) => {
-    console.log({ data, currentSideData });
     if (currentSideData.source) {
       handleSubmitEdge(data, currentSideData);
     } else {
@@ -81,6 +91,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
     reset();
     setOpenSidebar(false);
   };
+
   return (
     <Transition appear show={sideBarOpen} as={Fragment}>
       <Transition.Child
@@ -203,12 +214,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                           <input
                             id={`conditions.${index}.value`}
                             type="text"
-                            {...register(`conditions.${index}.value`, {
-                              required: {
-                                value: true,
-                                message: "Write the condition here",
-                              },
-                            })}
+                            {...register(`conditions.${index}.value`)}
                             className={`w-full px-6 py-4 mt-5 bg-white border border-gray-200 rounded-md outline-none hover:border-violet-400 focus:outline-none text-black`}
                             placeholder="Write description here"
                           />
