@@ -6,8 +6,6 @@ function useUpdateEdge() {
   const { setEdges } = useReactFlow();
 
   const handleSubmitEdge = (data, currentNode) => {
-    console.log(data, currentNode);
-    return;
     setEdges((edges) => {
       const clonededges = [...edges];
       const maped = clonededges.map((item) => {
