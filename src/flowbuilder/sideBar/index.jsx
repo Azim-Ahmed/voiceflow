@@ -21,7 +21,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
   const FinalNode = exceptFloat.filter(
     (item) => item.id !== currentSideData.id
   );
-  console.log("🚀 ~ file: index.jsx:24 ~ SideBar ~ FinalNode:", FinalNode);
+
   const renderNodes = FinalNode.map((item) => ({
     node: item.data.description,
     id: item.id,
@@ -94,7 +94,7 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
     reset();
     setOpenSidebar(false);
   };
-  console.log({ fields });
+
   return (
     <Transition appear show={sideBarOpen} as={Fragment}>
       <Transition.Child

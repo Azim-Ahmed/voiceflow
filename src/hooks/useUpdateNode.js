@@ -15,11 +15,16 @@ function useUpdateNode() {
 
       const newNode = [];
 
-      creatableNew.forEach((node) => {
-        newNode.push(
-          addNewNode({ type: NodeTypes.StepNode, label: "Input" }, currentNode)
-        );
-      });
+      creatableNew
+        .filter((item) => !item.step.id)
+        .forEach((node) => {
+          newNode.push(
+            addNewNode(
+              { type: NodeTypes.StepNode, label: "Input" },
+              currentNode
+            )
+          );
+        });
 
       setNodes((nodes) => {
         const clonedNodes = [...nodes];
@@ -41,9 +46,13 @@ function useUpdateNode() {
         const clonededges = [...edges];
 
         const newEdge = creatableNew?.map((item, index) =>
-          addNewEdge(currentNode.id, newNode[index].id, "custom", item.value)
+          addNewEdge(
+            currentNode.id,
+            item?.step?.id ? item?.step?.id : newNode[index].id,
+            "custom",
+            item.value
+          )
         );
-
         const newUpdatedEdges = [...clonededges, ...newEdge];
         let uniqueArray = _.uniqBy(newUpdatedEdges, "id");
 
