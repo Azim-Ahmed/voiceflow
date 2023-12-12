@@ -6,10 +6,6 @@ function useUpdateNode() {
   const { setNodes, setEdges } = useReactFlow();
 
   const handleSubmitNode = (data, currentNode) => {
-    console.log(
-      "🚀 ~ file: useUpdateNode.js:9 ~ handleSubmitNode ~ data:",
-      data
-    );
     if (currentNode.type === NodeTypes.Condition) {
       const { conditions } = data;
 

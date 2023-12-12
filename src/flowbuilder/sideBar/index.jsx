@@ -266,13 +266,15 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
                       </div>
                     ))}
                     <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={addInput}
-                        className="bg-blue-400"
-                      >
-                        Add Condition
-                      </button>
+                      {currentSideData.type !== "custom" && (
+                        <button
+                          type="button"
+                          onClick={addInput}
+                          className="bg-blue-400"
+                        >
+                          Add Condition
+                        </button>
+                      )}
                       <Button type="submit">Save</Button>
                     </div>
                   </>
