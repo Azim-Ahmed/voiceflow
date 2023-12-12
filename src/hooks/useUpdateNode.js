@@ -6,6 +6,10 @@ function useUpdateNode() {
   const { setNodes, setEdges } = useReactFlow();
 
   const handleSubmitNode = (data, currentNode) => {
+    console.log(
+      "🚀 ~ file: useUpdateNode.js:9 ~ handleSubmitNode ~ data:",
+      data
+    );
     if (currentNode.type === NodeTypes.Condition) {
       const { conditions } = data;
 
@@ -66,6 +70,9 @@ function useUpdateNode() {
                 condition: item.value,
                 step: item.step,
               },
+              target: item?.step?.id
+                ? item?.step?.id
+                : uniqueArray[index].target,
             };
           }
         });
