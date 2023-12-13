@@ -1,9 +1,7 @@
 import _ from "lodash";
-import { getConnectedEdges, getOutgoers, useReactFlow } from "reactflow";
+import { getOutgoers, useReactFlow } from "reactflow";
 import {
-  EdgeTypes,
   NodeTypes,
-  addNewFloatNode,
   checkduplicity,
   removeSimilarById,
 } from "../flowbuilder/Utils";
@@ -17,34 +15,24 @@ function useNodeDelete() {
     if (currentNode?.type === NodeTypes.Condition) {
       const azimData = removeTreeOfOutgoers(currentNode);
       const checkDuplic = checkduplicity(azimData.flat());
-      const floatNode = addNewFloatNode(currentNode);
       setNodes((nodes) => {
         const nodesCopy = [...nodes];
         const combinedArray = removeSimilarById(nodesCopy, checkDuplic);
-        const newNodes = [...combinedArray, floatNode];
+        const newNodes = [...combinedArray];
         return newNodes;
       });
       setEdges((edges) => {
         const clonedEdges = [...edges];
         const incomingEdges = edges.filter((x) => x.target === deleteId);
         const outgoingEdges = edges.filter((x) => x.source === deleteId);
-        const updatedIncomingEdges = incomingEdges.map((x) => ({
-          ...x,
-          target: floatNode.id,
-          data: { ...x.data, condition: x.data.condition, icon: x.data.icon },
-          type: EdgeTypes.default,
-        }));
         const filteredEdges = clonedEdges.filter(
           (x) =>
-            x.target !== incomingEdges[0].target &&
-            x.source !== outgoingEdges[0].source
+            x.target !== incomingEdges[0]?.target &&
+            x.source !== outgoingEdges[0]?.source
         );
-        filteredEdges.push(...updatedIncomingEdges);
         return filteredEdges;
       });
-      // fitView({ duration: 300 });
     } else {
-      const connectedEdge = getConnectedEdges(new Array(currentNode), edges);
       setNodes((nodes) => {
         const clonedNodes = [...nodes];
         const maped = clonedNodes.filter((item) => item.id !== deleteId);
@@ -55,35 +43,13 @@ function useNodeDelete() {
         const clonedEdges = [...edges];
         const incomingEdges = edges.filter((x) => x.target === deleteId);
         const outgoingEdges = edges.filter((x) => x.source === deleteId);
-        const isFloatNode = nodesOrigin.find(
-          (item) => item.id === outgoingEdges[0].target
-        );
-        const isConditionEdge =
-          isFloatNode.type === NodeTypes.FloatNode &&
-          incomingEdges[0].type === "custom";
-        const updatedIncomingEdges = incomingEdges.map((x) => ({
-          ...x,
-          target: outgoingEdges[0].target,
-          type: isConditionEdge
-            ? EdgeTypes.custom
-            : isFloatNode.type === NodeTypes.FloatNode
-            ? EdgeTypes.default
-            : x.type,
-          data: {
-            ...x.data,
-            condition: x.data.condition,
-            icon: isConditionEdge ? "" : x.data.icon,
-          },
-        }));
         const filteredEdges = clonedEdges.filter(
           (x) =>
-            x.target !== incomingEdges[0].target &&
-            x.source !== outgoingEdges[0].source
+            x.target !== incomingEdges[0]?.target &&
+            x.source !== outgoingEdges[0]?.source
         );
-        filteredEdges.push(...updatedIncomingEdges);
         return filteredEdges;
       });
-      // fitView({ duration: 300 });
     }
   };
 
