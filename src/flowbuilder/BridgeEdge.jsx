@@ -2,7 +2,6 @@ import React from "react";
 import { BaseEdge, EdgeLabelRenderer, getBezierPath } from "reactflow";
 
 const BridgeEdge = ({
-  id,
   sourceX,
   sourceY,
   targetX,
@@ -37,11 +36,7 @@ const BridgeEdge = ({
             pointerEvents: "all",
           }}
           className="nodrag nopan"
-        >
-          {/* <button className="edgebutton shadow-lg ">
-            <PlusIcon className="h-4 w-4 flex-shrink-0 text-[#6039DB]" />
-          </button> */}
-        </div>
+        ></div>
       </EdgeLabelRenderer>
     </>
   );
