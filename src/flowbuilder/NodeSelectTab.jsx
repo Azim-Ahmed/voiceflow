@@ -6,7 +6,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const NodeSelectTab = ({ stepActionHandle, conditionActionHandle }) => {
+const NodeSelectTab = ({ stepActionHandle }) => {
   const documentsTakingTabs = [
     {
       label: "Add an input",
@@ -50,9 +50,6 @@ const NodeSelectTab = ({ stepActionHandle, conditionActionHandle }) => {
                       key={i}
                       item={item}
                       actionHandle={stepActionHandle}
-                      // actionHandle={
-                      //   item.id === 1 ? conditionActionHandle : stepActionHandle
-                      // }
                     />
                   ))}
                 </div>

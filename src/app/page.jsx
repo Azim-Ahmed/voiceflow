@@ -33,7 +33,6 @@ const Flowbuilder = () => {
     isModalOpen,
     currentSideData,
     setCurrentSideData,
-    conditionActionHandle,
     nodeTypes,
     edgeTypes,
   } = useFlowBuilder();
@@ -129,8 +128,6 @@ const Flowbuilder = () => {
             nodes={nodes}
             edges={edges}
             onEdgeUpdate={onEdgeUpdate}
-            // nodes={layoutNodes}
-            // edges={layoutEdges}
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
@@ -139,7 +136,6 @@ const Flowbuilder = () => {
             zoomOnPinch={false}
             elementsSelectable={true}
             zoomOnDoubleClick={false}
-            // deleteKeyCode={null}
             defaultViewport={defaultViewport}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
@@ -198,7 +194,6 @@ const Flowbuilder = () => {
         >
           <NodeSelectTab
             stepActionHandle={stepActionHandle}
-            conditionActionHandle={conditionActionHandle}
           />
         </SelectNodeModal>
       </div>

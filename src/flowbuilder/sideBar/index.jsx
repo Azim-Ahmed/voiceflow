@@ -26,7 +26,6 @@ const SideBar = ({ sideBarOpen, currentSideData, setOpenSidebar }) => {
     node: item.data.description,
     id: item.id,
   }));
-  // console.log({ renderNodes });
   const addInput = () => {
     append({ id: nanoid(8), value: "", step: "" });
   };

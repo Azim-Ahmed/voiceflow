@@ -16,47 +16,24 @@ export const EdgeTypes = {
   default: "default",
   smoothstep: "smoothstep",
 };
-export const ActionTitles = {
-  has_email: "has_email",
-  has_linkedin_url: "has_linkedin_url",
-  is_invite_accepted: "is_invite_accepted",
-  is_msg_opened: "is_msg_opened",
-  has_msg_replied: "has_msg_replied",
-  is_email_opened: "is_email_opened",
-  has_email_replied: "has_email_replied",
-  is_clicked_link_email: "is_clicked_link_email",
-  //steps
-  send_connection: "send_connection",
-  like_last_post: "like_last_post",
-  send_msg: "send_msg",
-  send_email: "send_email",
-  send_voice: "send_voice",
-  comment_last_post: "comment_last_post",
-};
-
-export const isSideBarOpen = Object.values(ActionTitles).slice(2, 8);
-export const isSideBarWithoutEditor = Object.values(ActionTitles).slice(2, 10);
 export const nodeTypeStage = [
   {
     id: 1,
     label: "Input",
     type: "StepNode",
     stepType: "email",
-    actionTitle: ActionTitles.send_connection,
   },
   {
     id: 2,
     label: "Condition",
     type: "Condition",
     stepType: "email",
-    actionTitle: ActionTitles.has_email,
   },
   {
     id: 3,
     label: "End the process",
     type: "EndNode",
     stepType: "email",
-    actionTitle: ActionTitles.send_connection,
   },
 ];
 export const nodeTypeCondtion = [
@@ -66,7 +43,6 @@ export const nodeTypeCondtion = [
     Icon: flowIcons.HasEmail,
     type: "Condition",
     stepType: "email",
-    actionTitle: ActionTitles.has_email,
   },
 ];
 const initialNodes = [
