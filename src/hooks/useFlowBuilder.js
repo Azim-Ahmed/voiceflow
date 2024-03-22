@@ -20,15 +20,7 @@ import CustomEdge from "../flowbuilder/CustomEdge";
 import BlankNode from "@/flowbuilder/BlankNode";
 
 function useFlowBuilder() {
-  const {
-    setNodes,
-    setEdges,
-    getNodes,
-    getNode,
-    getEdges,
-    fitView,
-    screenToFlowPosition,
-  } = useReactFlow();
+  const { setNodes, setEdges, getNodes, getNode, getEdges } = useReactFlow();
 
   const nodes = getNodes();
   const edges = getEdges();

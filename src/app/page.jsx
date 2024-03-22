@@ -59,7 +59,6 @@ const Flowbuilder = () => {
       } else if (node.type === NodeTypes.FloatNode) {
         return;
       } else {
-        // fitView({ maxZoom: 1, duration: 300 });
         setCurrentSideData(node);
         setOpenSidebar(true);
       }
@@ -113,7 +112,6 @@ const Flowbuilder = () => {
 
   const handleInitialPosition = (e) => {
     const { clientX, clientY, offsetX, offsetY } = e.nativeEvent;
-    console.log({ clientX, clientY, offsetX, offsetY });
     const targetIsPane = e.target.classList.contains("react-flow__pane");
     if (targetIsPane) {
       const position = screenToFlowPosition({ x: clientX, y: clientY });
@@ -121,21 +119,22 @@ const Flowbuilder = () => {
         allPos: { clientX, clientY, offsetX, offsetY },
         position,
       });
-      console.log({ position, targetIsPane });
     }
   };
   const handleLastPosition = (e) => {
     const { clientX, clientY, offsetX, offsetY } = e.nativeEvent;
     const lastNodePosition = { clientX, clientY, offsetX, offsetY };
-    const dem = getNodeDimensionsAndPosition(
+    const singleBlankNode = getNodeDimensionsAndPosition(
       nodePosition.allPos,
       lastNodePosition
     );
-    dem.type = "blank";
-    dem.label = "Blank Node";
-    dem.id = v4();
-    dem.position = nodePosition.position;
-    stepBlankNode(dem);
+    Object.assign(singleBlankNode, {
+      type: "blank",
+      label: "Blank Node",
+      id: v4(),
+      position: nodePosition.position,
+    });
+    stepBlankNode(singleBlankNode);
   };
   function getNodeDimensionsAndPosition(obj1, obj2) {
     // Calculate width and height
