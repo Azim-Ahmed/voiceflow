@@ -11,8 +11,9 @@ import ReactFlow, {
   addEdge,
   MarkerType,
   updateEdge,
+  useReactFlow,
 } from "reactflow";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4, v4 } from "uuid";
 import _ from "lodash";
 import "./styles.css";
 import "reactflow/dist/style.css";
@@ -27,23 +28,25 @@ import useElementSize from "@/hooks/useElementSize";
 const Flowbuilder = () => {
   const {
     stepActionHandle,
+    stepBlankNode,
     setIsModalOpen,
     setCurrentEdge,
     setCurrentNode,
+    setCurrentSideData,
     isModalOpen,
     currentSideData,
-    setCurrentSideData,
     nodeTypes,
     edgeTypes,
   } = useFlowBuilder();
+  const { screenToFlowPosition } = useReactFlow();
   //node select modal
   const [onlySteps, setOnlySteps] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [size, ref] = useElementSize();
-
+  const [nodePosition, setNodePosition] = useState({});
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const proOptions = { hideAttribution: true };
 
   const handleNodeClick = useCallback(
@@ -107,6 +110,50 @@ const Flowbuilder = () => {
       setEdges((els) => updateEdge(oldEdge, newConnection, els)),
     []
   );
+
+  const handleInitialPosition = (e) => {
+    const { clientX, clientY, offsetX, offsetY } = e.nativeEvent;
+    console.log({ clientX, clientY, offsetX, offsetY });
+    const targetIsPane = e.target.classList.contains("react-flow__pane");
+    if (targetIsPane) {
+      const position = screenToFlowPosition({ x: clientX, y: clientY });
+      setNodePosition({
+        allPos: { clientX, clientY, offsetX, offsetY },
+        position,
+      });
+      console.log({ position, targetIsPane });
+    }
+  };
+  const handleLastPosition = (e) => {
+    const { clientX, clientY, offsetX, offsetY } = e.nativeEvent;
+    const lastNodePosition = { clientX, clientY, offsetX, offsetY };
+    const dem = getNodeDimensionsAndPosition(
+      nodePosition.allPos,
+      lastNodePosition
+    );
+    dem.type = "blank";
+    dem.label = "Blank Node";
+    dem.id = v4();
+    dem.position = nodePosition.position;
+    stepBlankNode(dem);
+  };
+  function getNodeDimensionsAndPosition(obj1, obj2) {
+    // Calculate width and height
+    const width = Math.abs(obj2.clientX - obj1.clientX);
+    const height = Math.abs(obj2.clientY - obj1.clientY);
+
+    // Determine position
+    const left = Math.min(obj1.clientX, obj2.clientX);
+    const top = Math.min(obj1.clientY, obj2.clientY);
+
+    return {
+      width: width,
+      height: height,
+      left: left,
+      top: top,
+    };
+  }
+
   return (
     <div>
       <Navbar jsonElements={extractedJsonStructure} />
@@ -132,10 +179,16 @@ const Flowbuilder = () => {
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             proOptions={proOptions}
+            // onPaneMouseMove={(e) => console.log(e)}
+            selectionMode={"full"}
+            onSelectionStart={(e) => handleInitialPosition(e)}
+            onSelectionEnd={(e) => handleLastPosition(e)}
             zoomOnScroll={false}
             zoomOnPinch={false}
             elementsSelectable={true}
+            onInit={setReactFlowInstance}
             zoomOnDoubleClick={false}
+            selectionOnDrag
             defaultViewport={defaultViewport}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
@@ -192,9 +245,7 @@ const Flowbuilder = () => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         >
-          <NodeSelectTab
-            stepActionHandle={stepActionHandle}
-          />
+          <NodeSelectTab stepActionHandle={stepActionHandle} />
         </SelectNodeModal>
       </div>
     </div>

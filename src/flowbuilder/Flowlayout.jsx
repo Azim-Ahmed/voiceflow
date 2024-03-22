@@ -34,6 +34,10 @@ const Flowlayout = (props) => {
   };
   return (
     <div
+      style={{
+        width: data?.width,
+        height: data?.height,
+      }}
       className={` flex justify-between items-center shadow-md min-h-[70px] w-[360px] relative bg-white text-black rounded-[10px] border-solid border border-[rgba(17, 24, 39, 0.10)] ${
         selected && "border border-[#6039DB] z-50"
       }`}
