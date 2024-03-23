@@ -12,6 +12,7 @@ import ReactFlow, {
   MarkerType,
   updateEdge,
   useReactFlow,
+  SelectionMode,
 } from "reactflow";
 import { v4 as uuidv4, v4 } from "uuid";
 import _ from "lodash";
@@ -152,7 +153,7 @@ const Flowbuilder = () => {
       top: top,
     };
   }
-
+  const panOnDrag = [1, 2];
   return (
     <div>
       <Navbar jsonElements={extractedJsonStructure} />
@@ -178,8 +179,6 @@ const Flowbuilder = () => {
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             proOptions={proOptions}
-            // onPaneMouseMove={(e) => console.log(e)}
-            selectionMode={"full"}
             onSelectionStart={(e) => handleInitialPosition(e)}
             onSelectionEnd={(e) => handleLastPosition(e)}
             zoomOnScroll={false}
@@ -187,14 +186,16 @@ const Flowbuilder = () => {
             elementsSelectable={true}
             onInit={setReactFlowInstance}
             zoomOnDoubleClick={false}
+            panOnScroll
             selectionOnDrag
+            panOnDrag={panOnDrag}
+            selectionMode={SelectionMode.Partial}
             defaultViewport={defaultViewport}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onPaneClick={() => {
               setOpenSidebar(false);
             }}
-            panOnScroll
             preventScrolling
             onEdgeClick={(e, f) => {
               if (e.target.tagName === "BUTTON" || e.target.tagName === "svg") {
