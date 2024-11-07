@@ -4,6 +4,7 @@ import { getConnectedEdges, getIncomers, useReactFlow } from "reactflow";
 import {
   EdgeTypes,
   NodeTypes,
+  addBlankNode,
   addEmptyNode,
   addNewEdge,
   addNewFloatNode,
@@ -16,10 +17,11 @@ import EndNode from "../flowbuilder/EndNode";
 import FloatNode from "../flowbuilder/FloatNode";
 import BridgeEdge from "../flowbuilder/BridgeEdge";
 import CustomEdge from "../flowbuilder/CustomEdge";
+import BlankNode from "@/flowbuilder/BlankNode";
 
 function useFlowBuilder() {
-  const { setNodes, setEdges, getNodes, getNode, getEdges, fitView } =
-    useReactFlow();
+  const { setNodes, setEdges, getNodes, getNode, getEdges } = useReactFlow();
+
   const nodes = getNodes();
   const edges = getEdges();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +37,7 @@ function useFlowBuilder() {
       startNode: StartNode,
       FloatNode: FloatNode,
       EndNode: EndNode,
+      blank: BlankNode,
     }),
     []
   );
@@ -46,8 +49,22 @@ function useFlowBuilder() {
     []
   );
 
-  const stepActionHandle = (item) => {
+  const stepBlankNode = (item) => {
     // Nodes actions or update
+    console.log({ item });
+    const getNewEmptyNode = addBlankNode(item, currentNode);
+
+    setNodes((nodes) => {
+      const newCopy = [...nodes];
+      const newNodes = [...newCopy, getNewEmptyNode];
+      return newNodes;
+    });
+
+    setIsModalOpen(false);
+    setCurrentEdge({});
+    setCurrentNode({});
+  };
+  const stepActionHandle = (item) => {
     const currentClickedNode = new Array(currentNode);
     const getNewNode = addNewNode(item, currentNode);
     const getNewEmptyNode = addEmptyNode(item, currentNode);
@@ -103,10 +120,7 @@ function useFlowBuilder() {
           const nodesCopy = newCopy.filter(
             (item) => item.id !== currentNode.id
           );
-          const newNodes = [
-            ...nodesCopy,
-            getNewNode,
-          ];
+          const newNodes = [...nodesCopy, getNewNode];
           return newNodes;
         });
         const prevNode = getNode(connectedEdge[0]?.source);
@@ -153,7 +167,6 @@ function useFlowBuilder() {
     setCurrentEdge({});
     setCurrentNode({});
   };
-
   return {
     isModalOpen,
     currentEdge,
@@ -166,6 +179,7 @@ function useFlowBuilder() {
     setCurrentEdge,
     setIsModalOpen,
     setCurrentSideData,
+    stepBlankNode,
   };
 }
 
